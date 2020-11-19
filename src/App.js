@@ -1,7 +1,8 @@
 import { Button, Calendar, DatePicker, Input, Switch, Table } from "antd";
 import styled from "styled-components";
 
-import "./App.less";
+import "./app.less";
+import { ViewCard } from "./views";
 
 const StyledButton = styled(Button)`
   margin-top: 20px;
@@ -35,7 +36,9 @@ const App = () => {
       </StyledFlex>
       <Calendar />
       <DatePicker />
-      <span>sssss</span>
+
+      <ViewCard />
+     
     </div>
   );
 };

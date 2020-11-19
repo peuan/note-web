@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { ThemeProvider } from "styled-components";
 
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import App from "./app";
+import reportWebVitals from "./report-web-vitals";
 import { styledTheme } from "./theme";
 
 ReactDOM.render(
