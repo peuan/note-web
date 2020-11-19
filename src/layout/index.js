@@ -21,6 +21,7 @@ const Layout = ({ children }) => {
   };
 
   const onClickSidePanel = ({ key }) => {
+    console.log(key);
     history.push(key);
   };
 
