@@ -19,12 +19,6 @@ const Layout = ({ children }) => {
   const onCollapse = (collapsed) => {
     setCollapsed(collapsed);
   };
-  const history = useHistory();
-  const onClickSiadBar = ({ key }) => {
-    history.push(key);
-
-    console.log(key);
-  };
 
   const onClickSidePanel = ({ key }) => {
     history.push(key);
@@ -46,7 +40,7 @@ const Layout = ({ children }) => {
           <Menu.Item
             key={path.about}
             icon={<DesktopOutlined />}
-            onClick={(e) => onClickSiadBar(e)}
+            onClick={(e) => onClickSidePanel(e)}
           >
             About
           </Menu.Item>
