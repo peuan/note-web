@@ -1,7 +1,12 @@
+import Layout from "../../layout";
 import { ViewCard } from "../../views";
 
 const NotePage = () => {
-  return <ViewCard />;
+  return (
+    <Layout>
+      <ViewCard />
+    </Layout>
+  );
 };
 
 export default NotePage;

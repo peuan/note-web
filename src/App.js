@@ -1,46 +1,8 @@
-import { Button, Calendar, DatePicker, Input, Switch, Table } from "antd";
-import styled from "styled-components";
-
 import "./app.less";
-import { ViewCard } from "./views";
-
-const StyledButton = styled(Button)`
-  margin-top: 20px;
-  &.ant-btn-primary {
-    background-color: ${(props) => props.theme.primary} !important;
-  }
-`;
-
-const StyledFlex = styled.div`
-  display: flex;
-  margin-top: 20px;
-  &.test {
-    background-color: red;
-  }
-  .one {
-    background-color: green;
-  }
-`;
+import Layout from "./layout";
 
 const App = () => {
-  return (
-    <div className="App">
-      <StyledButton type="primary">Button</StyledButton>
-      <Button type="primary">sssss</Button>
-      <Input />
-      <Switch />
-      <StyledFlex className="test">
-        <div className="one">lll</div>
-        <div className="two">222</div>
-        <div className="3">222</div>
-      </StyledFlex>
-      <Calendar />
-      <DatePicker />
-
-      <ViewCard />
-     
-    </div>
-  );
+  return <Layout>ssssssskskskksksksks</Layout>;
 };
 
 export default App;
