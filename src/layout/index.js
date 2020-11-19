@@ -67,7 +67,7 @@ const Layout = ({ children }) => {
           </Breadcrumb>
           <div
             className="site-layout-background"
-            style={{ padding: 24, minHeight: 360 }}
+            style={{ padding: 30, minHeight: 360 }}
           >
             {children}
           </div>
