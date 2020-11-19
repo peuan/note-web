@@ -2,7 +2,7 @@ import Layout from "../../layout";
 const About = () => {
   return (
     <Layout>
-      <div>หน้า About</div>
+      <div>หน้า AboutXXX</div>
     </Layout>
   );
 };
