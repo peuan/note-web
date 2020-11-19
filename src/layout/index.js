@@ -1,5 +1,7 @@
 import { Breadcrumb, Layout as AntLayout, Menu } from "antd";
 import { useState } from "react";
+import { path } from "../route";
+import { useHistory } from "react-router-dom";
 import {
   PieChartOutlined,
   DesktopOutlined,
@@ -16,17 +18,27 @@ const Layout = ({ children }) => {
   const onCollapse = (collapsed) => {
     setCollapsed(collapsed);
   };
+  const history = useHistory();
+  const onClickSiadBar = ({ key }) => {
+    history.push(key);
+
+    console.log(key);
+  };
 
   return (
-    <AntLayout style={{ minHeight: "100vh" }} >
+    <AntLayout style={{ minHeight: "100vh" }}>
       <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
         <div className="logo" />
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
           <Menu.Item key="1" icon={<PieChartOutlined />}>
             Option 1
           </Menu.Item>
-          <Menu.Item key="2" icon={<DesktopOutlined />}>
-            Option 2
+          <Menu.Item
+            key={path.about}
+            icon={<DesktopOutlined />}
+            onClick={(e) => onClickSiadBar(e)}
+          >
+            About
           </Menu.Item>
           <SubMenu key="sub1" icon={<UserOutlined />} title="User">
             <Menu.Item key="3">Tom</Menu.Item>

@@ -1,5 +1,6 @@
 import Home from "../pages/home";
 import Login from "../pages/login";
+import About from "../pages/about";
 import Exception from "../utils/exception";
 import { path } from "./path";
 const routes = [
@@ -18,6 +19,12 @@ const routes = [
     exact: true,
     component: Login,
   },
+  {
+    path: path.about,
+    exact: true,
+    component: About,
+  },
+
   {
     path: "/forbidden",
     exact: true,
