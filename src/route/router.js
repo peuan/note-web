@@ -1,6 +1,7 @@
 import Home from "../pages/home";
 import Login from "../pages/login";
 import About from "../pages/about";
+import NotePage from "../pages/note";
 import Exception from "../utils/exception";
 import { path } from "./path";
 const routes = [
@@ -23,6 +24,11 @@ const routes = [
     path: path.about,
     exact: true,
     component: About,
+  },
+  {
+    path: path.note,
+    exact: true,
+    component: NotePage,
   },
 
   {

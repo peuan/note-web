@@ -1,12 +1,7 @@
 import Layout from "../../layout";
-import { ViewCard } from "../../views";
 
 const NotePage = () => {
-  return (
-    <Layout>
-      <ViewCard />
-    </Layout>
-  );
+  return <Layout>หน้า Note</Layout>;
 };
 
 export default NotePage;
