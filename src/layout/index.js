@@ -36,7 +36,7 @@ const Layout = ({ children }) => {
           onClick={(e) => onClickSidePanel(e)}
         >
           <Menu.Item key={path.note} icon={<PieChartOutlined />}>
-            Note
+            Home
           </Menu.Item>
           <Menu.Item
             key={path.about}

@@ -1,7 +1,7 @@
 import Layout from "../../layout";
 
 const NotePage = () => {
-  return <Layout>หน้า Note</Layout>;
+  return <Layout>หน้า Home</Layout>;
 };
 
 export default NotePage;
