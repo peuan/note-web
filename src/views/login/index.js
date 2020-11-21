@@ -1,11 +1,17 @@
 import { Form, Input, Button, Checkbox, message } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import {
+  UserOutlined,
+  LockOutlined,
+  RedEnvelopeFilled,
+} from "@ant-design/icons";
 import { path } from "../../route";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { AuthService } from "../../services";
 import { mapExceptionCode } from "../../utils";
-import { StyleLoginForm } from "./style";
+import { StyleBtn, StyledRow, StyleForm } from "./style";
+import { Row, Col } from "antd";
+
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -23,46 +29,41 @@ const Login = () => {
   };
 
   return (
-    <StyleLoginForm>
-      <Form
-        name="normal_login"
-        className="login-form"
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-      >
-        <Form.Item
-          name="username"
-          rules={[{ required: true, message: "Please input your Username!" }]}
+    <StyledRow justify="center">
+      <Col span={8}>
+        <StyleForm
+          bgcolor=""
+          name="normal_login"
+          className="login-form"
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
         >
-          <Input
-            prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Username"
-          />
-        </Form.Item>
-        <Form.Item
-          name="password"
-          rules={[{ required: true, message: "Please input your Password!" }]}
-        >
-          <Input
-            prefix={<LockOutlined className="site-form-item-icon" />}
-            type="password"
-            placeholder="Password"
-          />
-        </Form.Item>
-
-        <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="login-form-button"
-            loading={isLoading}
+          <Form.Item
+            name="username"
+            rules={[{ required: true, message: "Please input your Username!" }]}
           >
-            Log in
-          </Button>
-          Or <Link to={path.register}>register now!</Link>
-        </Form.Item>
-      </Form>
-    </StyleLoginForm>
+            <Input prefix={<UserOutlined />} placeholder="ชื่อผู้ใช้" />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            rules={[{ required: true, message: "Please input your Password!" }]}
+          >
+            <Input
+              prefix={<LockOutlined />}
+              type="password"
+              placeholder="รหัสผ่าน"
+            />
+          </Form.Item>
+
+          <StyleBtn>
+            <Button type="primary" htmlType="submit" loading={isLoading}>
+              เข้าสู่ระบบ
+            </Button>
+            หรือ <Link to={path.register}>สมัครตอนนี้</Link>
+          </StyleBtn>
+        </StyleForm>
+      </Col>
+    </StyledRow>
   );
 };
 

@@ -1,12 +1,17 @@
 import styled from "styled-components";
+import { Row, Form } from "antd";
+import { PropertySafetyFilled } from "@ant-design/icons";
 
-export const StyleLoginForm = styled.div`
-  & {
-    display: flex;
-    width: 300px;
-  }
+export const StyledRow = styled(Row)`
+  margin-top: 100px;
+`;
 
-  .login-form {
-    background-color: grey;
-  }
+export const StyleForm = styled(Form)`
+  background-color: ${(prop) => prop.bgcolor};
+  padding: 15px;
+`;
+
+export const StyleBtn = styled(Form.Item)`
+  margin-left: auto;
+  margin-right: auto;
 `;
