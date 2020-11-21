@@ -41,12 +41,6 @@ const routes = [
   },
 
   {
-    path: path.register,
-    exact: true,
-    component: RegisterPage,
-  },
-
-  {
     path: "/forbidden",
     exact: true,
     component: () => <Exception code="403" />,

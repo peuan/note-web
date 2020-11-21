@@ -54,7 +54,13 @@ const Layout = ({ children }) => {
             <Menu.Item key="6">Team 1</Menu.Item>
             <Menu.Item key="8">Team 2</Menu.Item>
           </SubMenu> */}
-          <Menu.Item icon={<FileOutlined />}>none</Menu.Item>
+          <Menu.Item
+            key={path.register}
+            icon={<FileOutlined />}
+            onClick={(e) => onClickSidePanel(e)}
+          >
+            Register
+          </Menu.Item>
         </Menu>
       </Sider>
       <AntLayout className="site-layout">
