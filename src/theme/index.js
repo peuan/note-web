@@ -1,1 +1,1 @@
-export * from './styled-theme'
+export * from "./styled-theme";
