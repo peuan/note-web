@@ -36,7 +36,7 @@ const Layout = ({ children }) => {
           onClick={(e) => onClickSidePanel(e)}
         >
           <Menu.Item key={path.note} icon={<PieChartOutlined />}>
-            Note
+            Home
           </Menu.Item>
           <Menu.Item
             key={path.about}
@@ -54,9 +54,7 @@ const Layout = ({ children }) => {
             <Menu.Item key="6">Team 1</Menu.Item>
             <Menu.Item key="8">Team 2</Menu.Item>
           </SubMenu> */}
-          <Menu.Item key="9" icon={<FileOutlined />}>
-            Files
-          </Menu.Item>
+          <Menu.Item icon={<FileOutlined />}>none</Menu.Item>
         </Menu>
       </Sider>
       <AntLayout className="site-layout">

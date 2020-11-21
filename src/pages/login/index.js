@@ -1,4 +1,7 @@
+import AuthService from "../../services";
+import { ViewLogin } from "../../views";
+
 const Login = () => {
-  return <h1>Login</h1>;
+  return <ViewLogin />;
 };
 export default Login;

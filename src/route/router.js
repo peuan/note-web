@@ -4,6 +4,7 @@ import About from "../pages/about";
 import NotePage from "../pages/note";
 import Exception from "../utils/exception";
 import { path } from "./path";
+import RegisterPage from "../pages/register";
 const routes = [
   {
     path: "/",
@@ -29,6 +30,12 @@ const routes = [
     path: path.note,
     exact: true,
     component: NotePage,
+  },
+
+  {
+    path: path.register,
+    exact: true,
+    component: RegisterPage,
   },
 
   {
