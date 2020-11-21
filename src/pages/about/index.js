@@ -1,9 +1,10 @@
 import Layout from "../../layout";
-const About = () => {
+
+const AboutPage = () => {
   return (
     <Layout>
       <div>หน้า Aboutnew</div>
     </Layout>
   );
 };
-export default About;
+export default AboutPage;

@@ -54,8 +54,12 @@ const Layout = ({ children }) => {
             <Menu.Item key="6">Team 1</Menu.Item>
             <Menu.Item key="8">Team 2</Menu.Item>
           </SubMenu> */}
-          <Menu.Item key="9" icon={<FileOutlined />}>
-            Files
+          <Menu.Item
+            key={path.register}
+            icon={<FileOutlined />}
+            onClick={(e) => onClickSidePanel(e)}
+          >
+            Register
           </Menu.Item>
         </Menu>
       </Sider>

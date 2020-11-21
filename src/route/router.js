@@ -1,34 +1,43 @@
-import Home from "../pages/home";
-import Login from "../pages/login";
-import About from "../pages/about";
-import NotePage from "../pages/note";
 import Exception from "../utils/exception";
 import { path } from "./path";
+import {
+  NotePage,
+  HomePage,
+  LoginPage,
+  AboutPage,
+  RegisterPage,
+} from "../pages";
+
 const routes = [
   {
     path: "/",
     exact: true,
-    component: Home,
+    component: HomePage,
   },
   {
     path: path.home,
     exact: true,
-    component: Home,
+    component: HomePage,
   },
   {
     path: path.login,
     exact: true,
-    component: Login,
+    component: LoginPage,
   },
   {
     path: path.about,
     exact: true,
-    component: About,
+    component: AboutPage,
   },
   {
     path: path.note,
     exact: true,
     component: NotePage,
+  },
+  {
+    path: path.register,
+    exact: true,
+    component: RegisterPage,
   },
 
   {
