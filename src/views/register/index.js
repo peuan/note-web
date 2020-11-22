@@ -1,4 +1,10 @@
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, message, Modal } from "antd";
+import { useState } from "react";
+import { AuthService } from "../../services";
+import { mapExceptionCode } from "../../utils";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { useHistory } from "react-router";
+import { path } from "../../route";
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -31,15 +37,38 @@ const tailFormItemLayout = {
 };
 const RegisterView = () => {
   const [form] = Form.useForm();
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+  const [isLoading, setLoading] = useState(false);
+  const { success } = Modal;
+  const history = useHistory();
+  const showConfirm = () => {
+    success({
+      title: "สมัครสมาชิกสำเร็จ",
+      icon: <ExclamationCircleOutlined />,
+      content: "Some descriptions",
+      onOk() {
+        history.push(path.home);
+      },
+    });
+  };
+  const handleSummit = () => {};
+  const onSummitRegister = async (values) => {
+    setLoading(true);
+    try {
+      const response = await AuthService.register(values);
+      response();
+      showConfirm();
+    } catch (error) {
+      const errorMessage = mapExceptionCode(error.response);
+      message.error(errorMessage);
+    }
+    setLoading(false);
   };
   return (
     <Form
       {...formItemLayout}
       form={form}
       name="register"
-      onFinish={onFinish}
+      onFinish={onSummitRegister}
       scrollToFirstError
     >
       <Form.Item
@@ -94,7 +123,7 @@ const RegisterView = () => {
         <Input.Password />
       </Form.Item>
       <Form.Item
-        name="firstname"
+        name="firstName"
         label="Firsname"
         rules={[
           {
@@ -106,8 +135,8 @@ const RegisterView = () => {
         <Input />
       </Form.Item>
       <Form.Item
-        name="lastname"
-        label="Lastname"
+        name="lastName"
+        label="LastName"
         rules={[
           {
             required: true,
@@ -122,7 +151,12 @@ const RegisterView = () => {
       </Form.Item>
 
       <Form.Item {...tailFormItemLayout}>
-        <Button type="primary" htmlType="submit">
+        <Button
+          type="primary"
+          htmlType="submit"
+          loading={isLoading}
+          onSubmit={handleSummit}
+        >
           สมัครสมาชิก
         </Button>
       </Form.Item>
