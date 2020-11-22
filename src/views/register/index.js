@@ -54,8 +54,7 @@ const RegisterView = () => {
   const onSummitRegister = async (values) => {
     setLoading(true);
     try {
-      const response = await AuthService.register(values);
-      response();
+      await AuthService.register(values);
       showConfirm();
     } catch (error) {
       const errorMessage = mapExceptionCode(error.response);
