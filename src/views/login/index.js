@@ -11,6 +11,7 @@ import { AuthService } from "../../services";
 import { mapExceptionCode } from "../../utils";
 import { StyleBtn, StyledRow, StyleForm } from "./style";
 import { Row, Col } from "antd";
+import Layout from "antd/lib/layout/layout";
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -30,23 +31,22 @@ const Login = () => {
 
   return (
     <StyledRow justify="center">
-      <Col span={8}>
+      <Col span={10}>
         <StyleForm
-          bgcolor=""
           name="normal_login"
-          className="login-form"
           initialValues={{ remember: true }}
           onFinish={onFinish}
+          bgcolor=""
         >
           <Form.Item
             name="username"
-            rules={[{ required: true, message: "Please input your Username!" }]}
+            rules={[{ required: true, message: "กรุณากรอกชื่อผู้ใช้" }]}
           >
             <Input prefix={<UserOutlined />} placeholder="ชื่อผู้ใช้" />
           </Form.Item>
           <Form.Item
             name="password"
-            rules={[{ required: true, message: "Please input your Password!" }]}
+            rules={[{ required: true, message: "กรุณากรอกรหัสผ่าน" }]}
           >
             <Input
               prefix={<LockOutlined />}
@@ -56,10 +56,10 @@ const Login = () => {
           </Form.Item>
 
           <StyleBtn>
+            <Link to={path.register}>สมัครตอนนี้</Link>
             <Button type="primary" htmlType="submit" loading={isLoading}>
               เข้าสู่ระบบ
             </Button>
-            หรือ <Link to={path.register}>สมัครตอนนี้</Link>
           </StyleBtn>
         </StyleForm>
       </Col>

@@ -35,11 +35,11 @@ const Layout = ({ children }) => {
           mode="inline"
           onClick={(e) => onClickSidePanel(e)}
         >
-          <Menu.Item key={path.note} icon={<PieChartOutlined />}>
+          <Menu.Item key={path.home} icon={<PieChartOutlined />}>
             Home
           </Menu.Item>
           <Menu.Item
-            key={path.about}
+            key={path.login}
             icon={<DesktopOutlined />}
             onClick={(e) => onClickSidePanel(e)}
           >
@@ -66,10 +66,10 @@ const Layout = ({ children }) => {
       <AntLayout className="site-layout">
         <Header />
         <Content style={{ margin: "0 16px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-          </Breadcrumb>
+          {/* <Breadcrumb style={{ margin: "16px 0" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+          </Breadcrumb> */}
           <div
             className="site-layout-background"
             style={{ padding: 40, minHeight: 360 }}
@@ -77,9 +77,9 @@ const Layout = ({ children }) => {
             {children}
           </div>
         </Content>
-        <Footer style={{ textAlign: "center" }}>
+        {/* <Footer style={{ textAlign: "center" }}>
           Ant Design ©2018 Created by Ant UED
-        </Footer>
+        </Footer> */}
       </AntLayout>
     </AntLayout>
   );

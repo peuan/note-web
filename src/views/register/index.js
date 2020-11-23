@@ -72,7 +72,7 @@ const RegisterView = () => {
     >
       <Form.Item
         name="username"
-        label="Username"
+        label="ชื่อผู้ใช้"
         rules={[
           {
             required: true,
@@ -84,7 +84,7 @@ const RegisterView = () => {
       </Form.Item>
       <Form.Item
         name="password"
-        label="Password"
+        label="รหัสผ่าน"
         rules={[
           {
             required: true,
@@ -98,7 +98,7 @@ const RegisterView = () => {
 
       <Form.Item
         name="confirm"
-        label="Confirm Password"
+        label="ยืนยันรหัสผ่าน"
         dependencies={["password"]}
         hasFeedback
         rules={[
@@ -123,7 +123,7 @@ const RegisterView = () => {
       </Form.Item>
       <Form.Item
         name="firstName"
-        label="Firsname"
+        label="ชื่อ"
         rules={[
           {
             required: true,
@@ -135,7 +135,7 @@ const RegisterView = () => {
       </Form.Item>
       <Form.Item
         name="lastName"
-        label="LastName"
+        label="นามสกุล"
         rules={[
           {
             required: true,
