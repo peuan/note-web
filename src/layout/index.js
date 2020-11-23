@@ -1,17 +1,14 @@
-import { Breadcrumb, Layout as AntLayout, Menu } from "antd";
+import { Layout as AntLayout, Menu } from "antd";
 import { useState } from "react";
 import { path } from "../route";
 import { useHistory } from "react-router-dom";
 import {
   PieChartOutlined,
   DesktopOutlined,
-  UserOutlined,
-  TeamOutlined,
   FileOutlined,
 } from "@ant-design/icons";
 
-const { Sider, Header, Footer, Content } = AntLayout;
-const { SubMenu } = Menu;
+const { Sider, Header, Content } = AntLayout;
 
 const Layout = ({ children }) => {
   const history = useHistory();
