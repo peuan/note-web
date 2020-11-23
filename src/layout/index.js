@@ -43,7 +43,7 @@ const Layout = ({ children }) => {
             icon={<DesktopOutlined />}
             onClick={(e) => onClickSidePanel(e)}
           >
-            About
+            Login
           </Menu.Item>
           {/* <SubMenu key="sub1" icon={<UserOutlined />} title="User">
             <Menu.Item key="3">Tom</Menu.Item>
