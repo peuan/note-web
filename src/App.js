@@ -6,17 +6,18 @@ import { AuthContext } from "./contexts";
 import { useState } from "react";
 
 const App = () => {
-  const [isAuthentication, setAuthentication] = useState(false);
+  const [isAuth, setAuth] = useState(false);
   const login = () => {
-    setAuthentication(true);
+    setAuth(true);
   };
   const logout = () => {
-    setAuthentication(false);
+    setAuth(false);
+    console.log(isAuth);
   };
   return (
     <AuthContext.Provider
       value={{
-        isAuthentication: isAuthentication,
+        isAuthentication: isAuth,
         loginContext: login,
         logout: logout,
       }}

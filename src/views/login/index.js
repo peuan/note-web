@@ -2,13 +2,15 @@ import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { path } from "../../route";
 import { useHistory } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { AuthService } from "../../services";
 import { StyledRow, StyleForm, StyleHeader, StyleRegisterBtn } from "./style";
 import { Col } from "antd";
+import { AuthContext } from "../../contexts";
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const authContext = useContext(AuthContext);
 
   const history = useHistory();
 
@@ -27,6 +29,7 @@ const Login = () => {
       const response = await AuthService.login(values);
       console.log(response);
       AuthService.setAccessToken(response.accessToken);
+      authContext.loginContext();
       success("เข้าสู่ระบบสำเร็จ");
     } catch (error) {
       // const errorMessage = mapExceptionCode(error.response);
@@ -37,6 +40,7 @@ const Login = () => {
 
   return (
     <StyledRow justify="center">
+      <h1></h1>
       <Col md={10} lg={6} xl={6}>
         <StyleForm
           name="normal_login"
