@@ -5,13 +5,14 @@ import { mapExceptionCode } from "../../utils";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { useHistory } from "react-router";
 import { path } from "../../route";
+import { StyleLoginBtn } from "./style";
 const formItemLayout = {
   labelCol: {
     xs: {
-      span: 24,
+      span: 12,
     },
     sm: {
-      span: 8,
+      span: 6,
     },
   },
   wrapperCol: {
@@ -19,15 +20,15 @@ const formItemLayout = {
       span: 24,
     },
     sm: {
-      span: 16,
+      span: 24,
     },
   },
 };
 const tailFormItemLayout = {
   wrapperCol: {
     xs: {
-      span: 24,
-      offset: 0,
+      span: 12,
+      offset: 12,
     },
     sm: {
       span: 24,
@@ -44,13 +45,15 @@ const RegisterView = () => {
     success({
       title: "สมัครสมาชิกสำเร็จ",
       icon: <ExclamationCircleOutlined />,
-      content: "Some descriptions",
+      content: "กรุณาล็อกอิน",
       onOk() {
-        history.push(path.home);
+        history.push(path.login);
       },
     });
   };
-  const handleSummit = () => {};
+  const handleSummit = () => {
+    history.push(path.login);
+  };
   const onSummitRegister = async (values) => {
     setLoading(true);
     try {
@@ -76,7 +79,7 @@ const RegisterView = () => {
         rules={[
           {
             required: true,
-            message: "Please input your Username",
+            message: "กรุณากรอกชื่อผู้ใช้",
           },
         ]}
       >
@@ -88,7 +91,7 @@ const RegisterView = () => {
         rules={[
           {
             required: true,
-            message: "Please input your password!",
+            message: "กรุณากรอกรหัสผ่าน",
           },
         ]}
         hasFeedback
@@ -104,7 +107,7 @@ const RegisterView = () => {
         rules={[
           {
             required: true,
-            message: "Please confirm your password!",
+            message: "กรอกรหัสผ่านอีกครั้ง",
           },
           ({ getFieldValue }) => ({
             validator(rule, value) {
@@ -112,9 +115,7 @@ const RegisterView = () => {
                 return Promise.resolve();
               }
 
-              return Promise.reject(
-                "The two passwords that you entered do not match!"
-              );
+              return Promise.reject("รหัส่านไม่ถูกต้อง");
             },
           }),
         ]}
@@ -127,7 +128,7 @@ const RegisterView = () => {
         rules={[
           {
             required: true,
-            message: "Please input your firstname",
+            message: "กรุณากรอกชื่อ",
           },
         ]}
       >
@@ -139,17 +140,38 @@ const RegisterView = () => {
         rules={[
           {
             required: true,
-            message: "Please input your lastname",
+            message: "กรุณากรอกนามสกุล",
           },
         ]}
       >
         <Input />
       </Form.Item>
-      <Form.Item name="email" label="E-mail">
+      <Form.Item
+        name="email"
+        label="E-mail"
+        rules={[
+          {
+            type: "email",
+            message: "อีเมล์ไม่ถูกต้อง",
+          },
+          {
+            required: true,
+            message: "กรุณากรอกอีเมล์",
+          },
+        ]}
+      >
         <Input />
       </Form.Item>
 
       <Form.Item {...tailFormItemLayout}>
+        <StyleLoginBtn
+          type="link"
+          htmlType="button"
+          onClick={handleSummit}
+          pl="0"
+        >
+          ล็อกอิน
+        </StyleLoginBtn>
         <Button
           type="primary"
           htmlType="submit"
