@@ -5,7 +5,7 @@ import { mapExceptionCode } from "../../utils";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { useHistory } from "react-router";
 import { path } from "../../route";
-import { StyleLoginBtn, StyleFormRegister } from "./style";
+import { StyleLoginBtn, StyleFormRegister, StyledHeader } from "./style";
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -75,6 +75,7 @@ const RegisterView = () => {
         onFinish={onSummitRegister}
         scrollToFirstError
       >
+        <StyledHeader>สมัครสมาชิก</StyledHeader>
         <Form.Item
           name="username"
           label="ชื่อผู้ใช้"

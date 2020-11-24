@@ -27,7 +27,7 @@ const Layout = ({ children }) => {
       <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
         <div className="logo" />
         <Menu
-          theme="dark"
+          theme="light"
           defaultSelectedKeys={["1"]}
           mode="inline"
           onClick={(e) => onClickSidePanel(e)}
@@ -35,11 +35,7 @@ const Layout = ({ children }) => {
           <Menu.Item key={path.home} icon={<PieChartOutlined />}>
             Home
           </Menu.Item>
-          <Menu.Item
-            key={path.login}
-            icon={<DesktopOutlined />}
-            onClick={(e) => onClickSidePanel(e)}
-          >
+          <Menu.Item key={path.login} icon={<DesktopOutlined />}>
             Login
           </Menu.Item>
           {/* <SubMenu key="sub1" icon={<UserOutlined />} title="User">
@@ -51,11 +47,7 @@ const Layout = ({ children }) => {
             <Menu.Item key="6">Team 1</Menu.Item>
             <Menu.Item key="8">Team 2</Menu.Item>
           </SubMenu> */}
-          <Menu.Item
-            key={path.register}
-            icon={<FileOutlined />}
-            onClick={(e) => onClickSidePanel(e)}
-          >
+          <Menu.Item key={path.register} icon={<FileOutlined />}>
             Register
           </Menu.Item>
         </Menu>

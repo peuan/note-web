@@ -4,7 +4,7 @@ import { path } from "../../route";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { AuthService } from "../../services";
-import { StyledRow, StyleForm, StyleRegisterBtn } from "./style";
+import { StyledRow, StyleForm, StyleHeader, StyleRegisterBtn } from "./style";
 import { Col } from "antd";
 
 const Login = () => {
@@ -26,6 +26,7 @@ const Login = () => {
     try {
       const response = await AuthService.login(values);
       console.log(response);
+      AuthService.setAccessToken(response.accessToken);
       success("เข้าสู่ระบบสำเร็จ");
     } catch (error) {
       // const errorMessage = mapExceptionCode(error.response);
@@ -42,6 +43,7 @@ const Login = () => {
           initialValues={{ remember: true }}
           onFinish={onFinish}
         >
+          <StyleHeader>เข้าสู่ระบบ</StyleHeader>
           <Form.Item
             name="username"
             rules={[{ required: true, message: "กรุณากรอกชื่อผู้ใช้" }]}
@@ -58,7 +60,6 @@ const Login = () => {
               placeholder="รหัสผ่าน"
             />
           </Form.Item>
-
           <Form.Item>
             <StyleRegisterBtn
               type="link"

@@ -13,3 +13,11 @@ export const StyleFormRegister = styled(Form.Item)`
 export const StyledRow = styled(Row)`
   margin-top: 100px;
 `;
+
+export const StyledHeader = styled.div`
+  text-align: center;
+  font-size: 25px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #2b2b2b;
+`;

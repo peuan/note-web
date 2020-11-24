@@ -21,6 +21,18 @@ class Auth {
       throw error;
     }
   }
+
+  setAccessToken(accessToken) {
+    localStorage.setItem("accessToken", accessToken);
+  }
+
+  getAccessToken() {
+    return localStorage.getItem("accessToken");
+  }
+
+  removeAccessToken() {
+    localStorage.removeItem("accessToken");
+  }
 }
 
 export const AuthService = new Auth();
