@@ -1,5 +1,5 @@
 import { Layout as AntLayout, Menu } from "antd";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { path } from "../route";
 import { useHistory } from "react-router-dom";
 import {
@@ -7,11 +7,13 @@ import {
   DesktopOutlined,
   FileOutlined,
 } from "@ant-design/icons";
+import { AuthContext } from "../contexts";
 
 const { Sider, Header, Content } = AntLayout;
 
 const Layout = ({ children }) => {
   const history = useHistory();
+  const { user } = useContext(AuthContext);
   const [collapsed, setCollapsed] = useState(false);
   const onCollapse = (collapsed) => {
     setCollapsed(collapsed);
@@ -36,7 +38,7 @@ const Layout = ({ children }) => {
             Home
           </Menu.Item>
           <Menu.Item key={path.login} icon={<DesktopOutlined />}>
-            Login
+            Login({user.firstName})
           </Menu.Item>
           {/* <SubMenu key="sub1" icon={<UserOutlined />} title="User">
             <Menu.Item key="3">Tom</Menu.Item>

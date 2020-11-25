@@ -33,6 +33,17 @@ class Auth {
   removeAccessToken() {
     localStorage.removeItem("accessToken");
   }
+  async getProfile() {
+    try {
+      const response = await axios.get(`${this.url}/profile`, {
+        headers: { Authorization: `Bearer ${this.getAccessToken()}` },
+      });
+      return response.data;
+    } catch (error) {
+      this.removeAccessToken();
+      throw error;
+    }
+  }
 }
 
 export const AuthService = new Auth();
