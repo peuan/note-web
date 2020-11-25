@@ -29,7 +29,7 @@ const Login = () => {
       const response = await AuthService.login(values);
       console.log(response);
       AuthService.setAccessToken(response.accessToken);
-      authContext.loginContext();
+      authContext.loginContext(response.user);
       success("เข้าสู่ระบบสำเร็จ");
     } catch (error) {
       // const errorMessage = mapExceptionCode(error.response);
@@ -40,7 +40,6 @@ const Login = () => {
 
   return (
     <StyledRow justify="center">
-      <h1></h1>
       <Col md={10} lg={6} xl={6}>
         <StyleForm
           name="normal_login"
