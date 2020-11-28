@@ -23,7 +23,7 @@ const App = () => {
     try {
       const user = await AuthService.getProfile();
       login(user);
-      console.log(user);
+      // console.log(user);
     } catch (error) {
       console.log(error);
     }
@@ -32,7 +32,7 @@ const App = () => {
   const login = (user) => {
     setAuth(true);
     setUser(user);
-    console.log(user);
+    // console.log(user);
   };
   const logout = () => {
     setAuth(false);
