@@ -7,17 +7,18 @@ import {
   AboutPage,
   RegisterPage,
 } from "../pages";
+import PrivateRoute from "./private-route";
 
 const routes = [
   {
     path: "/",
     exact: true,
-    component: HomePage,
+    component: () => <PrivateRoute component={HomePage} />,
   },
   {
     path: path.home,
     exact: true,
-    component: HomePage,
+    component: () => <PrivateRoute component={HomePage} />,
   },
   {
     path: path.login,
