@@ -29,7 +29,7 @@ const routes = [
   {
     path: path.about,
     exact: true,
-    component: AboutPage,
+    component: () => <PrivateRoute component={AboutPage} />,
   },
   {
     path: path.note,
