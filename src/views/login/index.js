@@ -2,7 +2,7 @@ import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { path } from "../../route";
 import { useHistory } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { AuthService } from "../../services";
 import { StyledRow, StyleForm, StyleHeader, StyleRegisterBtn } from "./style";
 import { Col } from "antd";
@@ -11,12 +11,15 @@ import { AuthContext } from "../../contexts";
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const authContext = useContext(AuthContext);
-
   const history = useHistory();
+  useEffect(() => {
+    if (authContext.isAuthentication) {
+      history.push(path.home);
+    }
+  }, [authContext.isAuthentication]);
 
   const success = (messageerror) => {
     message.success(messageerror);
-    history.push("/home");
   };
 
   const alertError = (messageerror) => {

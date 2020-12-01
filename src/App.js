@@ -8,13 +8,15 @@ import { useEffect, useState } from "react";
 import { AuthService } from "./services";
 
 const App = () => {
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
   const [user, setUser] = useState({});
   const [isAuth, setAuth] = useState(false);
   useEffect(() => {
     const accessToken = AuthService.getAccessToken();
     if (accessToken) {
       getProfile();
+    } else {
+      setLoading(false);
     }
   }, []);
 
@@ -36,6 +38,8 @@ const App = () => {
   };
   const logout = () => {
     setAuth(false);
+    AuthService.removeAccessToken();
+    setUser({});
     console.log(isAuth);
   };
   if (isLoading) {

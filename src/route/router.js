@@ -6,6 +6,7 @@ import {
   LoginPage,
   AboutPage,
   RegisterPage,
+  CreateTagPage,
 } from "../pages";
 import PrivateRoute from "./private-route";
 
@@ -39,6 +40,11 @@ const routes = [
     path: path.register,
     exact: true,
     component: RegisterPage,
+  },
+  {
+    path: path.createTag,
+    exact: true,
+    component: () => <PrivateRoute component={CreateTagPage} />,
   },
 
   {
