@@ -34,7 +34,9 @@ const routes = [
   {
     path: path.note,
     exact: true,
-    component: NotePage,
+    component: () => {
+      return <PrivateRoute component={NotePage} />;
+    },
   },
   {
     path: path.register,
