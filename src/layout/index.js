@@ -13,15 +13,18 @@ const { Sider, Header, Content } = AntLayout;
 
 const Layout = ({ children }) => {
   const history = useHistory();
-  const { user } = useContext(AuthContext);
+  const { isAuthentication, logout } = useContext(AuthContext);
   const [collapsed, setCollapsed] = useState(false);
   const onCollapse = (collapsed) => {
     setCollapsed(collapsed);
   };
 
   const onClickSidePanel = ({ key }) => {
-    console.log(key);
-    history.push(key);
+    if (key === "/logout") {
+      logout();
+    } else {
+      history.push(key);
+    }
   };
 
   return (
@@ -37,9 +40,11 @@ const Layout = ({ children }) => {
           <Menu.Item key={path.home} icon={<PieChartOutlined />}>
             Home
           </Menu.Item>
-          <Menu.Item key={path.login} icon={<DesktopOutlined />}>
-            Login({user.firstName})
+
+          <Menu.Item key={path.createTag} icon={<FileOutlined />}>
+            Tag
           </Menu.Item>
+
           {/* <SubMenu key="sub1" icon={<UserOutlined />} title="User">
             <Menu.Item key="3">Tom</Menu.Item>
             <Menu.Item key="4">Bill</Menu.Item>
@@ -52,6 +57,16 @@ const Layout = ({ children }) => {
           <Menu.Item key={path.register} icon={<FileOutlined />}>
             Register
           </Menu.Item>
+          {!isAuthentication && (
+            <Menu.Item key={path.login} icon={<DesktopOutlined />}>
+              Login
+            </Menu.Item>
+          )}
+          {isAuthentication && (
+            <Menu.Item key={"/logout"} icon={<FileOutlined />}>
+              Logout
+            </Menu.Item>
+          )}
         </Menu>
       </Sider>
       <AntLayout className="site-layout">

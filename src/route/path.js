@@ -4,4 +4,5 @@ export const path = {
   about: "/about",
   note: "/note",
   register: "/register",
+  createTag: "/createtag",
 };
