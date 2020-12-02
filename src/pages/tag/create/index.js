@@ -3,6 +3,7 @@ import { Form, Input, Button, message } from "antd";
 import { useState } from "react";
 import { TagService } from "../../../services/tag";
 import { mapExceptionCode } from "../../../utils";
+import { path } from "../../../route";
 
 const CreateTagPage = ({ onChange, fields }) => {
   const [isLoading, setLoading] = useState(false);
@@ -18,7 +19,7 @@ const CreateTagPage = ({ onChange, fields }) => {
     setLoading(false);
   };
   return (
-    <Layout>
+    <Layout selectedKey={path.createTag} defaultOpenKey="tag">
       <Form onFinish={onSummitCreateTag} name="global_state" layout="inline">
         <Form.Item
           name="tag"
