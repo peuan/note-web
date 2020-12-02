@@ -6,12 +6,16 @@ import {
   PieChartOutlined,
   DesktopOutlined,
   FileOutlined,
+  UserOutlined,
+  TeamOutlined,
 } from "@ant-design/icons";
 import { AuthContext } from "../contexts";
+import SubMenu from "antd/lib/menu/SubMenu";
+import { replaceUrl } from "../utils";
 
 const { Sider, Header, Content } = AntLayout;
 
-const Layout = ({ children }) => {
+const Layout = ({ children, selectedKey }) => {
   const history = useHistory();
   const { isAuthentication, logout } = useContext(AuthContext);
   const [collapsed, setCollapsed] = useState(false);
@@ -23,7 +27,7 @@ const Layout = ({ children }) => {
     if (key === "/logout") {
       logout();
     } else {
-      history.push(key);
+      history.push(replaceUrl(key, "-", "/"));
     }
   };
 
@@ -33,7 +37,7 @@ const Layout = ({ children }) => {
         <div className="logo" />
         <Menu
           theme="light"
-          defaultSelectedKeys={["1"]}
+          selectedKeys={replaceUrl(selectedKey)}
           mode="inline"
           onClick={(e) => onClickSidePanel(e)}
         >
@@ -41,20 +45,17 @@ const Layout = ({ children }) => {
             Home
           </Menu.Item>
 
-          <Menu.Item key={path.createTag} icon={<FileOutlined />}>
-            Tag
-          </Menu.Item>
-
-          {/* <SubMenu key="sub1" icon={<UserOutlined />} title="User">
-            <Menu.Item key="3">Tom</Menu.Item>
-            <Menu.Item key="4">Bill</Menu.Item>
-            <Menu.Item key="5">Alex</Menu.Item>
-          </SubMenu> */}
-          {/* <SubMenu key="sub2" icon={<TeamOutlined />} title="Team">
-            <Menu.Item key="6">Team 1</Menu.Item>
-            <Menu.Item key="8">Team 2</Menu.Item>
-          </SubMenu> */}
-          <Menu.Item key={path.register} icon={<FileOutlined />}>
+          <SubMenu key="Note" icon={<UserOutlined />} title="Note">
+            <Menu.Item key={replaceUrl(path.note)}>Note</Menu.Item>
+            <Menu.Item key={replaceUrl(path.createNote)}>
+              Create Note{replaceUrl(path.createNote)}
+            </Menu.Item>
+          </SubMenu>
+          <SubMenu key="Tag" icon={<TeamOutlined />} title="Tag">
+            <Menu.Item key={replaceUrl(path.tag)}>Tag</Menu.Item>
+            <Menu.Item key={replaceUrl(path.createTag)}>Create Tag</Menu.Item>
+          </SubMenu>
+          <Menu.Item key={replaceUrl(path.register)} icon={<FileOutlined />}>
             Register
           </Menu.Item>
           {!isAuthentication && (
