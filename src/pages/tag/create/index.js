@@ -3,7 +3,11 @@ import { Form, Input, Button, message, Modal } from "antd";
 import { useState } from "react";
 import { TagService } from "../../../services/tag";
 import { mapExceptionCode } from "../../../utils";
+
 import { ExclamationCircleOutlined } from "@ant-design/icons";
+
+import { path } from "../../../route";
+
 
 const CreateTagPage = () => {
   const [isLoading, setLoading] = useState(false);
@@ -28,7 +32,7 @@ const CreateTagPage = () => {
     setLoading(false);
   };
   return (
-    <Layout>
+    <Layout selectedKey={path.createTag} defaultOpenKey="tag">
       <Form onFinish={onSummitCreateTag} name="global_state" layout="inline">
         <Form.Item
           name="tag"

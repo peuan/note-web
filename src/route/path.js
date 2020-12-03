@@ -3,6 +3,9 @@ export const path = {
   login: "/login",
   about: "/about",
   note: "/note",
+  createNote: "/note/create",
   register: "/register",
-  createTag: "/createtag",
+  tag: "/tag",
+  createTag: "/tag/create",
 };
+
