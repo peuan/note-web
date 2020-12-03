@@ -1,19 +1,29 @@
 import Layout from "../../../layout";
-import { Form, Input, Button, message } from "antd";
+import { Form, Input, Button, message, Modal } from "antd";
 import { useState } from "react";
 import { TagService } from "../../../services/tag";
 import { mapExceptionCode } from "../../../utils";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 
-const CreateTagPage = ({ onChange, fields }) => {
+const CreateTagPage = () => {
   const [isLoading, setLoading] = useState(false);
+  const { success } = Modal;
+  const showConfirm = () => {
+    success({
+      title: "สร้าง Tag สำเร็จ",
+      icon: <ExclamationCircleOutlined />,
+    });
+  };
   const onSummitCreateTag = async (values) => {
     setLoading(true);
     try {
       const response = await TagService.createtag(values);
+      showConfirm();
       console.log(response);
     } catch (error) {
       const errorMessage = mapExceptionCode(error.response);
       message.error(errorMessage);
+      console.log(error);
     }
     setLoading(false);
   };
