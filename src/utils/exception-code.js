@@ -2,6 +2,7 @@ const exceptionCode = {
   invalid_username_or_password: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง",
   something_wrong: "มีบางอย่างผิดพลาด",
   username_already_exist: "มีการใช้ Username นี้แล้ว",
+  tag_already_exist: "มีการใช้ Tag นี้แล้ว",
 };
 
 export const getExceptionCode = (response) => {
