@@ -42,7 +42,7 @@ const TagPage = () => {
           onPressEnter={handleInputConfirm}
         ></Input>
       )}
-      {!inputVisible && <Tag onClick={showInput}>Test</Tag>}
+      {!inputVisible && <Tag onClick={showInput}>กรอก Tag</Tag>}
     </Layout>
   );
 };
