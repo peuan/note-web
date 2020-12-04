@@ -1,21 +1,23 @@
-import { Button, Form, Input, message, Select } from "antd";
-import { useEffect, useState } from "react";
-import { useHistory } from "react-router";
-import { path } from "../../../route";
+import { Button, Form, Input, Radio } from "antd";
+import Modal from "antd/lib/modal/Modal";
+import { useState } from "react";
 import { NoteService } from "../../../services";
 
-const { Option } = Select;
+const { TextArea } = Input;
 
 const ViewCreateNote = () => {
-  const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
 
-  const success = (messageerror) => {
-    message.success(messageerror);
+  const success = () => {
+    Modal.success({
+      content: "Create Note Completed!",
+    });
   };
 
-  const alertError = (messageerror) => {
-    message.error(messageerror);
+  const errorr = () => {
+    Modal.success({
+      content: "Create Note Fail!",
+    });
   };
 
   const onFinish = async (data) => {
@@ -23,9 +25,9 @@ const ViewCreateNote = () => {
     try {
       const response = await NoteService.createNote(data);
       console.log(response);
-      success("สร้างบันทึกเสร็จเรียบร้อยแล้ว");
+      success();
     } catch (error) {
-      alertError("มีข้อผิดพลาด กรุณาลองใหม่");
+      errorr();
     }
     setIsLoading(false);
   };
@@ -35,39 +37,40 @@ const ViewCreateNote = () => {
       <Form.Item
         name="note"
         label="Note"
-        rules={[{ required: true, message: "กรุณากรอก" }]}
+        rules={[{ required: true, message: "Please Insert Note" }]}
       >
-        <Input placeholder="บันทึกข้อความ" />
+        <TextArea rows={8} style={{ width: 500 }} placeholder="Note" />
       </Form.Item>
 
       <Form.Item
+        defaultValue="CALENDAR"
         name="type"
-        rules={[{ required: true, message: "กรุณาเลือกประเภท" }]}
+        label="Type"
+        rules={[{ required: true, message: "Please Select Type" }]}
       >
-        <Select style={{ width: 200 }} placeholder="Please Select Type">
-          <Option value="CALENDAR">Calendar</Option>
-          <Option value="TODO">Todo</Option>
-          <Option value="NOTE">Note</Option>
-        </Select>
+        <Radio.Group style={{ width: 600 }} placeholder="Select Type">
+          <Radio value="CALENDAR">Calendar</Radio>
+          <Radio value="TODO">Todo</Radio>
+          <Radio value="NOTE">Note</Radio>
+        </Radio.Group>
       </Form.Item>
 
       <Form.Item
-        style={{ width: 200 }}
         name="privacy"
-        rules={[{ required: true, message: "กรุณาเลือกประเภท" }]}
+        label="Privacy"
+        defaultValue="PRIVATE"
+        rules={[{ required: true, message: "Please Select Privacy" }]}
       >
-        <Select placeholder="Please Select Privacy">
-          <Option value="PUBLIC">Public</Option>
-          <Option value="PRIVATE">Private</Option>
-        </Select>
+        <Radio.Group placeholder="Privacy">
+          <Radio value="PRIVATE">Private</Radio>
+          <Radio value="PUBLIC">Public</Radio>
+        </Radio.Group>
       </Form.Item>
 
-      <Form.Item>
-        <Button type="primary" htmlType="submit" loading={isLoading}>
-          บันทึกข้อมูล
-        </Button>
-        <Button htmlType="button">ล้างข้อมูล</Button>
-      </Form.Item>
+      <Button type="primary" htmlType="submit" loading={isLoading}>
+        บันทึกข้อมูล
+      </Button>
+      <Button htmlType="button">ล้างข้อมูล</Button>
     </Form>
   );
 };
