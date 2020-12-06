@@ -15,6 +15,28 @@ class Note {
       throw error;
     }
   }
+
+  async getNotes() {
+    try {
+      const response = await Axios.get(`${this.url}`, {
+        headers: { Authorization: `Bearer ${AuthService.getAccessToken()}` },
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteNote(noteId) {
+    try {
+      const response = await Axios.delete(`${this.url}/${noteId}`, {
+        headers: { Authorization: `Bearer ${AuthService.getAccessToken()}` },
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export const NoteService = new Note();
