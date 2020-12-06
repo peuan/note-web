@@ -24,5 +24,15 @@ class Tag {
       throw error;
     }
   }
+  async deleteTag(tagId) {
+    try {
+      const response = await axios.delete(`${this.url}/${tagId}`, {
+        headers: { Authorization: `Bearer ${AuthService.getAccessToken()}` },
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 export const TagService = new Tag();

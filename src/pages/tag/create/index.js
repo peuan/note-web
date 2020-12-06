@@ -7,7 +7,7 @@ import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { path } from "../../../route";
 
 const CreateTagPage = () => {
-  const [inputValue, setInputValue] = useState("");
+  // const [inputValue, setInputValue] = useState("");
   const [inputVisible, setInputVisible] = useState(false);
   const [tags, setTags] = useState([]);
   const [isLoading, setLoading] = useState(false);
@@ -71,7 +71,7 @@ const CreateTagPage = () => {
           <Form.Item name="tag">
             <Input
               name="tag"
-              value={inputValue}
+              // value={inputValue}
               type="text"
               style={{ width: 100 }}
               // onPressEnter={onSummitCreateTag}
