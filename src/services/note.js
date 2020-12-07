@@ -21,18 +21,7 @@ class Note {
       const response = await Axios.get(`${this.url}`, {
         headers: { Authorization: `Bearer ${AuthService.getAccessToken()}` },
       });
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async deleteNote(noteId) {
-    try {
-      const response = await Axios.delete(`${this.url}/${noteId}`, {
-        headers: { Authorization: `Bearer ${AuthService.getAccessToken()}` },
-      });
-      return response.data;
+      return response.data.items;
     } catch (error) {
       throw error;
     }

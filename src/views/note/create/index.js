@@ -1,5 +1,4 @@
-import { Button, Form, Input, Radio } from "antd";
-import Modal from "antd/lib/modal/Modal";
+import { Button, Form, Input, Radio, Modal, Spin, Card } from "antd";
 import { useState } from "react";
 import { NoteService } from "../../../services";
 
@@ -7,6 +6,12 @@ const { TextArea } = Input;
 
 const ViewCreateNote = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [notes, setNotes] = useState([]);
+  const [isLoadningNotes, setIsLoadingNotes] = useState(false);
+  const [form] = Form.useForm();
+  const onReset = () => {
+    form.resetFields();
+  };
 
   const success = () => {
     Modal.success({
@@ -15,25 +20,28 @@ const ViewCreateNote = () => {
   };
 
   const errorr = () => {
-    Modal.success({
+    Modal.error({
       content: "Create Note Fail!",
     });
   };
 
   const onFinish = async (data) => {
     setIsLoading(true);
+    setIsLoadingNotes(true);
     try {
       const response = await NoteService.createNote(data);
       console.log(response);
+      setNotes(response);
       success();
     } catch (error) {
-      errorr();
+      throw error;
     }
+    setIsLoadingNotes(false);
     setIsLoading(false);
   };
 
   return (
-    <Form onFinish={onFinish}>
+    <Form onFinish={onFinish} form={form}>
       <Form.Item
         name="note"
         label="Note"
@@ -70,7 +78,9 @@ const ViewCreateNote = () => {
       <Button type="primary" htmlType="submit" loading={isLoading}>
         บันทึกข้อมูล
       </Button>
-      <Button htmlType="button">ล้างข้อมูล</Button>
+      <Button htmlType="button" onClick={onReset}>
+        ล้างข้อมูล
+      </Button>
     </Form>
   );
 };
