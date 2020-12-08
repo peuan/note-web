@@ -3,15 +3,16 @@ import { Form, Input, message, Modal, Spin, Tag } from "antd";
 import { useEffect, useState } from "react";
 import { TagService } from "../../../services/tag";
 import { mapExceptionCode } from "../../../utils";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { ExclamationCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { path } from "../../../route";
 
 const CreateTagPage = () => {
-  // const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const [inputVisible, setInputVisible] = useState(false);
   const [tags, setTags] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [isLoadingTags, setLoadingTags] = useState(false);
+  const [form] = Form.useForm();
   const { success } = Modal;
 
   useEffect(() => {
@@ -28,7 +29,7 @@ const CreateTagPage = () => {
 
   const showConfirm = () => {
     success({
-      title: "สร้าง Tag สำเร็จ",
+      title: "สร้างแทร็กสำเร็จ",
       icon: <ExclamationCircleOutlined />,
     });
   };
@@ -36,8 +37,10 @@ const CreateTagPage = () => {
   const showInput = () => {
     setInputVisible(true);
   };
-  const handleClose = (e) => {
-    e.preventDefault();
+  const handleClose = async (tagId) => {
+    console.log(tagId);
+    await TagService.deleteTag(tagId);
+    getTags();
   };
 
   const onSummitCreateTag = async (values) => {
@@ -45,6 +48,8 @@ const CreateTagPage = () => {
     try {
       const response = await TagService.createTag(values);
       showConfirm();
+      form.resetFields();
+      getTags();
       console.log(response);
     } catch (error) {
       const errorMessage = mapExceptionCode(error.response);
@@ -53,33 +58,49 @@ const CreateTagPage = () => {
     }
     setLoading(false);
   };
+
   return (
     <Layout selectedKey={path.createTag} defaultOpenKey="tag">
-      <Form onFinish={onSummitCreateTag} name="global_state" layout="inline">
-        {isLoadingTags ? (
-          <Spin />
-        ) : (
-          tags.map((tag) => {
+      <Form
+        onFinish={onSummitCreateTag}
+        name="global_state"
+        layout="inline"
+        form={form}
+      >
+        <Spin spinning={isLoadingTags}>
+          {tags.map((tag) => {
+            console.log(tag);
             return (
-              <Tag closable onClose={handleClose} key={tag.id} color="blue">
+              <Tag
+                closable
+                onClose={() => handleClose(tag.id)}
+                key={tag.id}
+                color="blue"
+              >
                 {tag.tag}
               </Tag>
             );
-          })
-        )}
+          })}
+        </Spin>
+
         {inputVisible && (
-          <Form.Item name="tag">
-            <Input
-              name="tag"
-              // value={inputValue}
-              type="text"
-              style={{ width: 100 }}
-              // onPressEnter={onSummitCreateTag}
-              loading={isLoading}
-            />
-          </Form.Item>
+          <Spin spinning={isLoading}>
+            <Form.Item name="tag">
+              <Input
+                name="tag"
+                value={inputValue}
+                type="text"
+                style={{ width: 85 }}
+                // onPressEnter={onSummitCreateTag}
+              />
+            </Form.Item>
+          </Spin>
         )}
-        {!inputVisible && <Tag onClick={showInput}>กรอก Tag</Tag>}
+        {!inputVisible && (
+          <Tag onClick={showInput}>
+            <PlusOutlined /> กรอกแทก
+          </Tag>
+        )}
       </Form>
     </Layout>
   );

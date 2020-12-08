@@ -1,7 +1,7 @@
 import Layout from "../../layout";
 import { path } from "../../route";
 import { Tag, Input } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+
 import { useState } from "react";
 
 const TagPage = () => {
