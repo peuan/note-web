@@ -1,5 +1,5 @@
 import Layout from "../../../layout";
-import { Form, Input, message, Modal, Spin, Tag } from "antd";
+import { Form, Input, message, Modal, Spin, Tag, Col } from "antd";
 import { useEffect, useState } from "react";
 import { TagService } from "../../../services/tag";
 import { mapExceptionCode } from "../../../utils";
@@ -33,6 +33,9 @@ const CreateTagPage = () => {
       icon: <ExclamationCircleOutlined />,
     });
   };
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
 
   const showInput = () => {
     setInputVisible(true);
@@ -62,11 +65,16 @@ const CreateTagPage = () => {
   return (
     <Layout selectedKey={path.createTag} defaultOpenKey="tag">
       <Form
+        onChange={handleInputChange}
         onFinish={onSummitCreateTag}
         name="global_state"
         layout="inline"
         form={form}
       >
+        <Col span={24}>
+          <h2>#tag</h2>
+        </Col>
+
         <Spin spinning={isLoadingTags}>
           {tags.map((tag) => {
             console.log(tag);
@@ -91,6 +99,7 @@ const CreateTagPage = () => {
                 value={inputValue}
                 type="text"
                 style={{ width: 85 }}
+
                 // onPressEnter={onSummitCreateTag}
               />
             </Form.Item>
