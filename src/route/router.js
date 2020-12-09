@@ -1,6 +1,7 @@
 import Exception from "../utils/exception";
 import { path } from "./path";
 import {
+  TagPage,
   NotePage,
   HomePage,
   LoginPage,
@@ -52,7 +53,13 @@ const routes = [
   {
     path: path.createTag,
     exact: true,
-    component: () => <PrivateRoute component={CreateTagPage} />,
+    component: CreateTagPage,
+    // component: () => <PrivateRoute component={CreateTagPage} />,
+  },
+  {
+    path: path.tag,
+    exact: true,
+    component: () => <PrivateRoute component={TagPage} />,
   },
 
   {
