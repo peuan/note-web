@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { ThemeProvider } from "styled-components";
 import { BrowserRouter } from "react-router-dom";
 
-import App from "./app";
+import App from "./app.js";
 import reportWebVitals from "./report-web-vitals";
 import { styledTheme } from "./theme";
 
