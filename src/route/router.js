@@ -5,7 +5,6 @@ import {
   NotePage,
   HomePage,
   LoginPage,
-  AboutPage,
   RegisterPage,
   CreateTagPage,
   CreateNotePage,
@@ -28,15 +27,12 @@ const routes = [
     exact: true,
     component: LoginPage,
   },
-  {
-    path: path.about,
-    exact: true,
-    component: () => <PrivateRoute component={AboutPage} />,
-  },
+
   {
     path: path.note,
     exact: true,
-    component: () => <PrivateRoute component={NotePage} />,
+    component: NotePage,
+    // () => <PrivateRoute component={NotePage} />,
   },
   {
     path: path.createNote,
@@ -53,8 +49,7 @@ const routes = [
   {
     path: path.createTag,
     exact: true,
-    component: CreateTagPage,
-    // component: () => <PrivateRoute component={CreateTagPage} />,
+    component: () => <PrivateRoute component={CreateTagPage} />,
   },
   {
     path: path.tag,
