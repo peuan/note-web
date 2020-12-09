@@ -12,3 +12,19 @@ export const StyleTagCol = styled(Col)``;
 export const StyleTagRow = styled(Row)`
   margin-top: 100px;
 `;
+export const FlexBox = styled.div`
+  background-color: #fbfcfc;
+  border-radius: 5px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  padding: 10px;
+  border: 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  > div {
+    margin: 20px;
+  }
+`;

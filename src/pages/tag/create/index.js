@@ -1,10 +1,11 @@
 import Layout from "../../../layout";
-import { Form, Input, message, Modal, Spin, Tag, Col } from "antd";
+import { Form, Input, message, Modal, Spin, Tag, Divider } from "antd";
 import { useEffect, useState } from "react";
 import { TagService } from "../../../services/tag";
 import { mapExceptionCode } from "../../../utils";
 import { ExclamationCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { path } from "../../../route";
+import { FlexBox } from "../style";
 
 const CreateTagPage = () => {
   const [inputValue, setInputValue] = useState("");
@@ -64,53 +65,54 @@ const CreateTagPage = () => {
 
   return (
     <Layout selectedKey={path.createTag} defaultOpenKey="tag">
-      <Form
-        onChange={handleInputChange}
-        onFinish={onSummitCreateTag}
-        name="global_state"
-        layout="inline"
-        form={form}
-      >
-        <Col span={24}>
-          <h2>#tag</h2>
-        </Col>
-
-        <Spin spinning={isLoadingTags}>
-          {tags.map((tag) => {
-            console.log(tag);
-            return (
-              <Tag
-                closable
-                onClose={() => handleClose(tag.id)}
-                key={tag.id}
-                color="blue"
-              >
-                {tag.tag}
-              </Tag>
-            );
-          })}
-        </Spin>
-
-        {inputVisible && (
-          <Spin spinning={isLoading}>
-            <Form.Item name="tag">
-              <Input
-                name="tag"
-                value={inputValue}
-                type="text"
-                style={{ width: 85 }}
-
-                // onPressEnter={onSummitCreateTag}
-              />
-            </Form.Item>
+      <Divider orientation="left">
+        <h1>#tag</h1>
+      </Divider>
+      <FlexBox>
+        <Form
+          onChange={handleInputChange}
+          onFinish={onSummitCreateTag}
+          name="global_state"
+          layout="inline"
+          form={form}
+        >
+          <Spin spinning={isLoadingTags}>
+            {tags.map((tag) => {
+              console.log(tag);
+              return (
+                <Tag
+                  closable
+                  onClose={() => handleClose(tag.id)}
+                  key={tag.id}
+                  color="blue"
+                >
+                  {tag.tag}
+                </Tag>
+              );
+            })}
           </Spin>
-        )}
-        {!inputVisible && (
-          <Tag onClick={showInput}>
-            <PlusOutlined /> กรอกแทก
-          </Tag>
-        )}
-      </Form>
+
+          {inputVisible && (
+            <Spin spinning={isLoading}>
+              <Form.Item name="tag">
+                <Input
+                  name="tag"
+                  value={inputValue}
+                  type="text"
+                  style={{ width: 85 }}
+
+                  // onPressEnter={onSummitCreateTag}
+                />
+              </Form.Item>
+            </Spin>
+          )}
+          {!inputVisible && (
+            <Tag onClick={showInput}>
+              <PlusOutlined /> กรอกแทก
+            </Tag>
+          )}
+        </Form>
+      </FlexBox>
     </Layout>
   );
 };
