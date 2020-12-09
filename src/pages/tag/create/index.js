@@ -1,28 +1,59 @@
 import Layout from "../../../layout";
-import { Form, Input, Button, message, Modal } from "antd";
-import { useState } from "react";
+import { Form, Input, message, Modal, Spin, Tag, Divider } from "antd";
+import { useEffect, useState } from "react";
 import { TagService } from "../../../services/tag";
 import { mapExceptionCode } from "../../../utils";
-
-import { ExclamationCircleOutlined } from "@ant-design/icons";
-
+import { ExclamationCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { path } from "../../../route";
-
+import { FlexBox } from "../style";
 
 const CreateTagPage = () => {
+  const [inputValue, setInputValue] = useState("");
+  const [inputVisible, setInputVisible] = useState(false);
+  const [tags, setTags] = useState([]);
   const [isLoading, setLoading] = useState(false);
+  const [isLoadingTags, setLoadingTags] = useState(false);
+  const [form] = Form.useForm();
   const { success } = Modal;
+
+  useEffect(() => {
+    getTags();
+  }, []);
+
+  const getTags = async () => {
+    setLoadingTags(true);
+    const tags = await TagService.getTags();
+    console.log(tags);
+    setTags(tags);
+    setLoadingTags(false);
+  };
+
   const showConfirm = () => {
     success({
-      title: "สร้าง Tag สำเร็จ",
+      title: "สร้างแทร็กสำเร็จ",
       icon: <ExclamationCircleOutlined />,
     });
   };
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const showInput = () => {
+    setInputVisible(true);
+  };
+  const handleClose = async (tagId) => {
+    console.log(tagId);
+    await TagService.deleteTag(tagId);
+    getTags();
+  };
+
   const onSummitCreateTag = async (values) => {
     setLoading(true);
     try {
-      const response = await TagService.createtag(values);
+      const response = await TagService.createTag(values);
       showConfirm();
+      form.resetFields();
+      getTags();
       console.log(response);
     } catch (error) {
       const errorMessage = mapExceptionCode(error.response);
@@ -31,27 +62,57 @@ const CreateTagPage = () => {
     }
     setLoading(false);
   };
+
   return (
     <Layout selectedKey={path.createTag} defaultOpenKey="tag">
-      <Form onFinish={onSummitCreateTag} name="global_state" layout="inline">
-        <Form.Item
-          name="tag"
-          label="สร้างแท็ก"
-          rules={[
-            {
-              required: true,
-              message: "กรุณาสร้างแท็ก",
-            },
-          ]}
+      <Divider orientation="left">
+        <h1>#tag</h1>
+      </Divider>
+      <FlexBox>
+        <Form
+          onChange={handleInputChange}
+          onFinish={onSummitCreateTag}
+          name="global_state"
+          layout="inline"
+          form={form}
         >
-          <Input />
-        </Form.Item>
-        <Form.Item>
-          <Button htmlType="submit" type="primary" loading={isLoading}>
-            ตกลง
-          </Button>
-        </Form.Item>
-      </Form>
+          <Spin spinning={isLoadingTags}>
+            {tags.map((tag) => {
+              console.log(tag);
+              return (
+                <Tag
+                  closable
+                  onClose={() => handleClose(tag.id)}
+                  key={tag.id}
+                  color="blue"
+                >
+                  {tag.tag}
+                </Tag>
+              );
+            })}
+          </Spin>
+
+          {inputVisible && (
+            <Spin spinning={isLoading}>
+              <Form.Item name="tag">
+                <Input
+                  name="tag"
+                  value={inputValue}
+                  type="text"
+                  style={{ width: 85 }}
+
+                  // onPressEnter={onSummitCreateTag}
+                />
+              </Form.Item>
+            </Spin>
+          )}
+          {!inputVisible && (
+            <Tag onClick={showInput}>
+              <PlusOutlined /> กรอกแทก
+            </Tag>
+          )}
+        </Form>
+      </FlexBox>
     </Layout>
   );
 };

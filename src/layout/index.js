@@ -51,7 +51,6 @@ const Layout = ({ children, selectedKey, defaultOpenKey }) => {
             <Menu.Item key={getUrlKey(path.createNote)}>Create Note</Menu.Item>
           </SubMenu>
           <SubMenu key="tag" icon={<TeamOutlined />} title="Tag">
-            <Menu.Item key={getUrlKey(path.tag)}>Tag</Menu.Item>
             <Menu.Item key={getUrlKey(path.createTag)}>Create Tag</Menu.Item>
           </SubMenu>
           <Menu.Item key={getUrlKey(path.register)} icon={<FileOutlined />}>

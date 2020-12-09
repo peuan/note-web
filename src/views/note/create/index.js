@@ -1,13 +1,13 @@
 import { Button, Form, Input, Radio, Modal, Spin, Card } from "antd";
 import { useState } from "react";
 import { NoteService } from "../../../services";
+import { BorderStyle } from "./style";
 
 const { TextArea } = Input;
 
 const ViewCreateNote = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [notes, setNotes] = useState([]);
-  const [isLoadningNotes, setIsLoadingNotes] = useState(false);
   const [form] = Form.useForm();
   const onReset = () => {
     form.resetFields();
@@ -27,7 +27,6 @@ const ViewCreateNote = () => {
 
   const onFinish = async (data) => {
     setIsLoading(true);
-    setIsLoadingNotes(true);
     try {
       const response = await NoteService.createNote(data);
       console.log(response);
@@ -36,7 +35,6 @@ const ViewCreateNote = () => {
     } catch (error) {
       throw error;
     }
-    setIsLoadingNotes(false);
     setIsLoading(false);
   };
 
@@ -50,18 +48,20 @@ const ViewCreateNote = () => {
         <TextArea rows={8} style={{ width: 500 }} placeholder="Note" />
       </Form.Item>
 
-      <Form.Item
-        defaultValue="CALENDAR"
-        name="type"
-        label="Type"
-        rules={[{ required: true, message: "Please Select Type" }]}
-      >
-        <Radio.Group style={{ width: 600 }} placeholder="Select Type">
-          <Radio value="CALENDAR">Calendar</Radio>
-          <Radio value="TODO">Todo</Radio>
-          <Radio value="NOTE">Note</Radio>
-        </Radio.Group>
-      </Form.Item>
+      <BorderStyle>
+        <Form.Item
+          defaultValue="CALENDAR"
+          name="type"
+          label="Type"
+          rules={[{ required: true, message: "Please Select Type" }]}
+        >
+          <Radio.Group style={{ width: 600 }} placeholder="Select Type">
+            <Radio value="CALENDAR">Calendar</Radio>
+            <Radio value="TODO">Todo</Radio>
+            <Radio value="NOTE">Note</Radio>
+          </Radio.Group>
+        </Form.Item>
+      </BorderStyle>
 
       <Form.Item
         name="privacy"

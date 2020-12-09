@@ -1,4 +1,4 @@
-import { Spin, Card, Row, Col, Button } from "antd";
+import { Spin, Row, Col, Skeleton } from "antd";
 import { useEffect, useState } from "react";
 import { NoteService } from "../../services";
 import { StyleCard } from "./style";
@@ -18,7 +18,7 @@ const ViewNote = () => {
   };
 
   if (isLoading) {
-    <Spin style={{ width: 500, height: 500 }} />;
+    return <Skeleton active />;
   }
   return (
     <Row gutter={16}>
