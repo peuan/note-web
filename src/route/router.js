@@ -31,7 +31,8 @@ const routes = [
   {
     path: path.note,
     exact: true,
-    component: () => <PrivateRoute component={NotePage} />,
+    component: NotePage,
+    // () => <PrivateRoute component={NotePage} />,
   },
   {
     path: path.createNote,
