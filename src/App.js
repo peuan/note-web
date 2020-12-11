@@ -6,7 +6,6 @@ import "./app.less";
 import { AuthContext } from "./contexts";
 import { useEffect, useState } from "react";
 import { AuthService } from "./services";
-import Layout from "antd/lib/layout/layout";
 
 const App = () => {
   const [isLoading, setLoading] = useState(true);

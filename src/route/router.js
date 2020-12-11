@@ -53,8 +53,7 @@ const routes = [
   {
     path: path.createTag,
     exact: true,
-    component: CreateTagPage,
-    // component: () => <PrivateRoute component={CreateTagPage} />,
+    component: () => <PrivateRoute component={CreateTagPage} />,
   },
   {
     path: path.tag,
