@@ -20,9 +20,8 @@ export const FlexBox = styled.div`
   padding: 10px;
   border: 1px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
 
   > div {
     margin: 20px;
