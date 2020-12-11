@@ -8,6 +8,7 @@ import {
   FileOutlined,
   UserOutlined,
   TagOutlined,
+  StopOutlined,
 } from "@ant-design/icons";
 import { AuthContext } from "../contexts";
 import SubMenu from "antd/lib/menu/SubMenu";
@@ -66,6 +67,7 @@ const Layout = ({ children, selectedKey, defaultOpenKey }) => {
               Logout
             </Menu.Item>
           )}
+          <Menu.Item icon={<StopOutlined />}>Trash</Menu.Item>
         </Menu>
       </Sider>
       <AntLayout className="site-layout">
