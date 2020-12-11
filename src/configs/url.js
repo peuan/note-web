@@ -1,1 +1,1 @@
-export const API_URL = "http://5db35e42d4ed.ngrok.io";
+export const API_URL = "https://demo-note-api.herokuapp.com";
