@@ -3,11 +3,11 @@ import { useContext, useState } from "react";
 import { path } from "../route";
 import { useHistory } from "react-router-dom";
 import {
-  PieChartOutlined,
+  HomeOutlined,
   DesktopOutlined,
   FileOutlined,
   UserOutlined,
-  TeamOutlined,
+  TagOutlined,
 } from "@ant-design/icons";
 import { AuthContext } from "../contexts";
 import SubMenu from "antd/lib/menu/SubMenu";
@@ -17,7 +17,7 @@ const { Sider, Header, Content } = AntLayout;
 
 const Layout = ({ children, selectedKey, defaultOpenKey }) => {
   const history = useHistory();
-  const { isAuthentication, logout } = useContext(AuthContext);
+  const { isAuthentication, logout, user } = useContext(AuthContext);
   const [collapsed, setCollapsed] = useState(false);
   const onCollapse = (collapsed) => {
     setCollapsed(collapsed);
@@ -42,7 +42,7 @@ const Layout = ({ children, selectedKey, defaultOpenKey }) => {
           onClick={(e) => onClickSidePanel(e)}
           defaultOpenKeys={[defaultOpenKey]}
         >
-          <Menu.Item key={path.home} icon={<PieChartOutlined />}>
+          <Menu.Item key={path.home} icon={<HomeOutlined />}>
             Home
           </Menu.Item>
 
@@ -50,7 +50,7 @@ const Layout = ({ children, selectedKey, defaultOpenKey }) => {
             <Menu.Item key={getUrlKey(path.note)}>Note</Menu.Item>
             <Menu.Item key={getUrlKey(path.createNote)}>Create Note</Menu.Item>
           </SubMenu>
-          <SubMenu key="tag" icon={<TeamOutlined />} title="Tag">
+          <SubMenu key="tag" icon={<TagOutlined />} title="Tag">
             <Menu.Item key={getUrlKey(path.createTag)}>Create Tag</Menu.Item>
           </SubMenu>
           <Menu.Item key={getUrlKey(path.register)} icon={<FileOutlined />}>
@@ -69,7 +69,10 @@ const Layout = ({ children, selectedKey, defaultOpenKey }) => {
         </Menu>
       </Sider>
       <AntLayout className="site-layout">
-        <Header />
+        <Header style={{ textAlign: "end" }}>
+          {user.firstName}
+          {user.lastName}
+        </Header>
         <Content style={{ margin: "0 16px" }}>
           {/* <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
