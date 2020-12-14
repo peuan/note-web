@@ -24,7 +24,6 @@ class Note {
       const limit = `&limit=${query.limit}`;
       const noteView = `&noteView=${query.noteView}`;
       const type = `&type=${query.type}`;
-
       const response = await Axios.get(
         `${this.url}?${page}${limit}${noteView}${type}`,
         {
@@ -32,6 +31,22 @@ class Note {
         }
       );
       return response.data.items;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async moveToTrash(noteId, data, query = { noteView: "TRASH" }) {
+    try {
+      const noteView = `noteView=${query.noteView}`;
+      const response = await Axios.put(
+        `${this.url}/${noteId}/note-view`,
+        data,
+        {
+          headers: { Authorization: `Bearer ${AuthService.getAccessToken()}` },
+        }
+      );
+      return response.data;
     } catch (error) {
       throw error;
     }

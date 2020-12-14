@@ -1,9 +1,7 @@
-import { Form, Input, Radio, Modal, Row, Col } from "antd";
+import { Form, Radio, Modal, Row, Col } from "antd";
 import { useState } from "react";
 import { NoteService } from "../../../services";
 import { ButtonStyle, ColStyledButton, TextAreaStyle } from "./style";
-
-const { TextArea } = Input;
 
 const ViewCreateNote = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,12 +14,6 @@ const ViewCreateNote = () => {
   const success = () => {
     Modal.success({
       content: "Create Note Completed!",
-    });
-  };
-
-  const errorr = () => {
-    Modal.error({
-      content: "Create Note Fail!",
     });
   };
 

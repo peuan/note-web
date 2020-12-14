@@ -1,5 +1,5 @@
-import { Comment, Row, Skeleton, Tooltip, Tabs } from "antd";
-import { createElement, useEffect, useState, React } from "react";
+import { Comment, Row, Skeleton, Tooltip, Tabs, Space, Popconfirm } from "antd";
+import { useEffect, useState, React } from "react";
 import { NoteService } from "../../services";
 import { StyleCard } from "./style";
 import {
@@ -7,6 +7,9 @@ import {
   LikeOutlined,
   DislikeFilled,
   LikeFilled,
+  DeleteOutlined,
+  FolderAddOutlined,
+  QuestionCircleOutlined,
 } from "@ant-design/icons";
 import Layout from "antd/lib/layout/layout";
 
@@ -16,15 +19,30 @@ const ViewNote = () => {
   const [likes, setLikes] = useState(0);
   const [dislikes, setDislikes] = useState(0);
   const [action, setAction] = useState(null);
+  const [selectTab, setSelectTab] = useState("ALL");
 
   useEffect(() => {
     getNotes();
-  }, []);
+  }, [selectTab]);
+
+  const { TabPane } = Tabs;
 
   const getNotes = async () => {
-    const note = await NoteService.getNotes();
+    setIsLoading(true);
+    const note = await NoteService.getNotes({
+      page: 1,
+      limit: 10,
+      noteView: selectTab,
+    });
+    console.log(note);
     setNotes(note);
     setIsLoading(false);
+  };
+
+  const moveNoteToTrash = async (noteId) => {
+    console.log(noteId);
+    await NoteService.moveToTrash(noteId);
+    getNotes();
   };
 
   const like = () => {
@@ -54,27 +72,50 @@ const ViewNote = () => {
     </Tooltip>,
   ];
 
-  if (isLoading) {
-    return <Skeleton active />;
-  }
   return (
     <Layout>
       <Row>
-        {notes.map((note) => {
-          return (
-            <StyleCard key={note.id}>
-              <Comment
-                actions={actions}
-                content={note.note}
-                author={
-                  <h3>
-                    {note.user.firstName} {note.user.lastName}
-                  </h3>
-                }
-              />
-            </StyleCard>
-          );
-        })}
+        <Tabs
+          defaultActiveKey="ALL"
+          centered
+          onChange={(value) => setSelectTab(value)}
+          activeKey={selectTab}
+        >
+          <TabPane tab="ALL NOTE" key="ALL"></TabPane>
+          <TabPane tab="ARCHIVE" key="ARCHIVE"></TabPane>
+          <TabPane tab="TRASH" key="TRASH"></TabPane>
+        </Tabs>
+
+        {isLoading ? (
+          <Skeleton active />
+        ) : (
+          notes.map((note) => {
+            return (
+              <StyleCard key={note.id}>
+                <Comment
+                  actions={actions}
+                  content={note.note}
+                  author={
+                    <h3>
+                      {note.user.firstName} {note.user.lastName}
+                    </h3>
+                  }
+                ></Comment>
+                <Space>
+                  <FolderAddOutlined style={{ color: "grey", fontSize: 20 }} />
+                  <Popconfirm
+                    title="Are you sure delete this note?"
+                    onConfirm={() => moveNoteToTrash(note.id)}
+                    key={note.id}
+                    icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+                  >
+                    <DeleteOutlined style={{ color: "grey", fontSize: 20 }} />
+                  </Popconfirm>
+                </Space>
+              </StyleCard>
+            );
+          })
+        )}
       </Row>
     </Layout>
   );
