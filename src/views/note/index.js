@@ -1,4 +1,4 @@
-import { Comment, Row, Skeleton, Tooltip } from "antd";
+import { Comment, Row, Skeleton, Tooltip, Tabs } from "antd";
 import { createElement, useEffect, useState, React } from "react";
 import { NoteService } from "../../services";
 import { StyleCard } from "./style";
