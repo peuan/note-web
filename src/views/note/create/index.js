@@ -1,13 +1,17 @@
-import { Form, Input, Radio, Modal, Row, Col } from "antd";
+import { Form, Input, Radio, Modal, Row, Col, Select } from "antd";
 import { useState } from "react";
-import { NoteService } from "../../../services";
+import { NoteService, TagService } from "../../../services";
+import { debounce } from "../../../utils/debounce";
 import { ButtonStyle, ColStyledButton, TextAreaStyle } from "./style";
 
 const { TextArea } = Input;
+const { Option } = Select;
 
 const ViewCreateNote = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [notes, setNotes] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
+
+  const [tags, setTags] = useState([]);
   const [form] = Form.useForm();
   const onReset = () => {
     form.resetFields();
@@ -19,18 +23,26 @@ const ViewCreateNote = () => {
     });
   };
 
-  const errorr = () => {
-    Modal.error({
-      content: "Create Note Fail!",
-    });
-  };
+  const searchTag = debounce(async (value) => {
+    setIsSearching(true);
+    try {
+      const response = await TagService.getTags({
+        page: 1,
+        limit: 30,
+        search: value,
+      });
+      setTags(response);
+    } catch (error) {
+      throw error;
+    }
+    setIsSearching(false);
+  }, 500);
 
   const onFinish = async (data) => {
     setIsLoading(true);
     try {
       const response = await NoteService.createNote(data);
       console.log(response);
-      setNotes(response);
       success();
     } catch (error) {
       throw error;
@@ -44,7 +56,7 @@ const ViewCreateNote = () => {
         <Col span={8} sm={24} md={12} lg={12}>
           <Form.Item
             name="note"
-            label="Note"
+            label="ชื่อ"
             rules={[{ required: true, message: "Please Insert Note" }]}
           >
             <TextAreaStyle rows={8} placeholder="Note" />
@@ -54,7 +66,7 @@ const ViewCreateNote = () => {
           <Form.Item
             defaultValue="CALENDAR"
             name="type"
-            label="Type"
+            label="ประเภทโน๊ต"
             rules={[{ required: true, message: "Please Select Type" }]}
           >
             <Radio.Group style={{ width: 600 }} placeholder="Select Type">
@@ -65,7 +77,7 @@ const ViewCreateNote = () => {
           </Form.Item>
           <Form.Item
             name="privacy"
-            label="Privacy"
+            label="ความเป็นส่วนตัว"
             defaultValue="PRIVATE"
             rules={[{ required: true, message: "Please Select Privacy" }]}
           >
@@ -73,6 +85,25 @@ const ViewCreateNote = () => {
               <Radio value="PRIVATE">Private</Radio>
               <Radio value="PUBLIC">Public</Radio>
             </Radio.Group>
+          </Form.Item>
+          <Form.Item name="tagIds" label="ค้นหาแทร็ก">
+            <Select
+              showSearch
+              style={{ width: 200 }}
+              placeholder="Select a person"
+              optionFilterProp="children"
+              mode="multiple"
+              onSearch={searchTag}
+              loading={isSearching}
+            >
+              {tags.map((tag) => {
+                return (
+                  <Option key={tag.id} value={tag.id}>
+                    {tag.tag}
+                  </Option>
+                );
+              })}
+            </Select>
           </Form.Item>
         </Col>
       </Row>

@@ -14,9 +14,12 @@ class Tag {
       throw error;
     }
   }
-  async getTags() {
+  async getTags(query = { page: 1, limit: 10, search: "" }) {
     try {
-      const response = await axios.get(`${this.url}`, {
+      const page = `page=${query.page}`;
+      const limit = `&limit=${query.limit}`;
+      const search = query.search ? `&search=${query.search}` : ``;
+      const response = await axios.get(`${this.url}?${page}${limit}${search}`, {
         headers: { Authorization: `Bearer ${AuthService.getAccessToken()}` },
       });
       return response.data.items;
