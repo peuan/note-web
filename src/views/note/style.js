@@ -1,3 +1,4 @@
+import Icon from "@ant-design/icons";
 import { Card, Row } from "antd";
 import styled from "styled-components";
 

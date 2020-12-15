@@ -16,12 +16,36 @@ class Note {
     }
   }
 
-  async getNotes() {
+  async getNotes(
+    query = { page: 1, limit: 10, noteView: "ALL", type: "NOTE" }
+  ) {
     try {
-      const response = await Axios.get(`${this.url}`, {
-        headers: { Authorization: `Bearer ${AuthService.getAccessToken()}` },
-      });
+      const page = `page=${query.page}`;
+      const limit = `&limit=${query.limit}`;
+      const noteView = `&noteView=${query.noteView}`;
+      const type = `&type=${query.type}`;
+      const response = await Axios.get(
+        `${this.url}?${page}${limit}${noteView}${type}`,
+        {
+          headers: { Authorization: `Bearer ${AuthService.getAccessToken()}` },
+        }
+      );
       return response.data.items;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async moveNote(noteId, data) {
+    try {
+      const response = await Axios.put(
+        `${this.url}/${noteId}/note-view`,
+        data,
+        {
+          headers: { Authorization: `Bearer ${AuthService.getAccessToken()}` },
+        }
+      );
+      return response.data;
     } catch (error) {
       throw error;
     }
