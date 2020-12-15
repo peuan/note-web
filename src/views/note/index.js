@@ -39,9 +39,9 @@ const ViewNote = () => {
     setIsLoading(false);
   };
 
-  const moveNoteToTrash = async (noteId) => {
+  const moveNote = async (noteId, noteView) => {
     console.log(noteId);
-    await NoteService.moveToTrash(noteId);
+    await NoteService.moveNote(noteId, { noteView });
     getNotes();
   };
 
@@ -102,10 +102,19 @@ const ViewNote = () => {
                   }
                 ></Comment>
                 <Space>
-                  <FolderAddOutlined style={{ color: "grey", fontSize: 20 }} />
+                  <Popconfirm
+                    title="Are you sure archive this note?"
+                    onConfirm={() => moveNote(note.id, "ARCHIVE")}
+                    key={note.id}
+                    icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+                  >
+                    <FolderAddOutlined
+                      style={{ color: "grey", fontSize: 20 }}
+                    />
+                  </Popconfirm>
                   <Popconfirm
                     title="Are you sure delete this note?"
-                    onConfirm={() => moveNoteToTrash(note.id)}
+                    onConfirm={() => moveNote(note.id, "TRASH")}
                     key={note.id}
                     icon={<QuestionCircleOutlined style={{ color: "red" }} />}
                   >

@@ -36,9 +36,8 @@ class Note {
     }
   }
 
-  async moveToTrash(noteId, data, query = { noteView: "TRASH" }) {
+  async moveNote(noteId, data) {
     try {
-      const noteView = `noteView=${query.noteView}`;
       const response = await Axios.put(
         `${this.url}/${noteId}/note-view`,
         data,
