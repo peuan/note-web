@@ -1,24 +1,12 @@
-import { Comment, Row, Skeleton, Tooltip, Tabs, Space, Popconfirm } from "antd";
+import { Row, Skeleton, Tabs } from "antd";
 import { useEffect, useState, React } from "react";
 import { NoteService } from "../../services";
-import { StyleCard } from "./style";
-import {
-  DislikeOutlined,
-  LikeOutlined,
-  DislikeFilled,
-  LikeFilled,
-  DeleteOutlined,
-  FolderAddOutlined,
-  QuestionCircleOutlined,
-} from "@ant-design/icons";
 import Layout from "antd/lib/layout/layout";
+import CardNote from "./card";
 
 const ViewNote = () => {
   const [notes, setNotes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [likes, setLikes] = useState(0);
-  const [dislikes, setDislikes] = useState(0);
-  const [action, setAction] = useState(null);
   const [selectTab, setSelectTab] = useState("ALL");
 
   useEffect(() => {
@@ -33,6 +21,7 @@ const ViewNote = () => {
       page: 1,
       limit: 10,
       noteView: selectTab,
+      type: "NOTE",
     });
     console.log(note);
     setNotes(note);
@@ -41,36 +30,22 @@ const ViewNote = () => {
 
   const moveNote = async (noteId, noteView) => {
     console.log(noteId);
+    const index = notes.findIndex((note) => note.id === noteId);
+    console.log(notes[index]);
+    const newNotes = [...notes];
+    const note = newNotes[index];
+    note.isLoading = true;
+    setNotes(newNotes);
     await NoteService.moveNote(noteId, { noteView });
+    note.isLoading = false;
+    setNotes(newNotes);
     getNotes();
   };
 
-  const like = () => {
-    setLikes(1);
-    setDislikes(0);
-    setAction("liked");
+  const updateOption = async (noteId, option) => {
+    await NoteService.updateOption(noteId, { option });
+    getNotes();
   };
-
-  const dislike = () => {
-    setLikes(0);
-    setDislikes(1);
-    setAction("disliked");
-  };
-
-  const actions = [
-    <Tooltip key="comment-basic-like" title="Like">
-      <span onClick={like}>
-        {action === "liked" ? <LikeFilled /> : <LikeOutlined />}
-        <span className="comment-action">{likes}</span>
-      </span>
-    </Tooltip>,
-    <Tooltip key="comment-basic-dislike" title="Dislike">
-      <span onClick={dislike}>
-        {action === "disliked" ? <DislikeFilled /> : <DislikeOutlined />}
-        <span className="comment-action">{dislikes}</span>
-      </span>
-    </Tooltip>,
-  ];
 
   return (
     <Layout>
@@ -91,37 +66,12 @@ const ViewNote = () => {
         ) : (
           notes.map((note) => {
             return (
-              <StyleCard key={note.id}>
-                <Comment
-                  actions={actions}
-                  content={note.note}
-                  author={
-                    <h3>
-                      {note.user.firstName} {note.user.lastName}
-                    </h3>
-                  }
-                ></Comment>
-                <Space>
-                  <Popconfirm
-                    title="Are you sure archive this note?"
-                    onConfirm={() => moveNote(note.id, "ARCHIVE")}
-                    key={note.id}
-                    icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-                  >
-                    <FolderAddOutlined
-                      style={{ color: "grey", fontSize: 20 }}
-                    />
-                  </Popconfirm>
-                  <Popconfirm
-                    title="Are you sure delete this note?"
-                    onConfirm={() => moveNote(note.id, "TRASH")}
-                    key={note.id}
-                    icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-                  >
-                    <DeleteOutlined style={{ color: "grey", fontSize: 20 }} />
-                  </Popconfirm>
-                </Space>
-              </StyleCard>
+              <CardNote
+                key={note.id}
+                note={note}
+                moveNote={moveNote}
+                updateOption={updateOption}
+              />
             );
           })
         )}
