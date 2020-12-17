@@ -61,6 +61,16 @@ class Note {
       throw error;
     }
   }
+  async updateNote(noteId, data) {
+    try {
+      const response = await Axios.put(`${this.url}/${noteId}`, data, {
+        headers: { Authorization: `Bearer ${AuthService.getAccessToken()}` },
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export const NoteService = new Note();
