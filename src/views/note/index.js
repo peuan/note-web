@@ -37,14 +37,27 @@ const ViewNote = () => {
     note.isLoading = true;
     setNotes(newNotes);
     await NoteService.moveNote(noteId, { noteView });
-    note.isLoading = false;
-    setNotes(newNotes);
-    getNotes();
+    const notesUpdated = [...newNotes].filter((note) => note.id !== noteId);
+    setNotes(notesUpdated);
   };
 
   const updateOption = async (noteId, option) => {
+    const index = notes.findIndex((note) => note.id === noteId);
+    const newNotes = [...notes];
+    const note = newNotes[index];
+    note.option = option;
+    newNotes.sort((a, b) => {
+      if (a.option === "PIN" && b.option === "ACTIVE") {
+        return -1;
+      }
+      if (a.option === "ACTIVE" && b.option === "PIN") {
+        return 1;
+      }
+      return new Date(b.createDate) - new Date(a.createDate);
+    });
+    setNotes(newNotes);
     await NoteService.updateOption(noteId, { option });
-    getNotes();
+    // getNotes();
   };
 
   return (

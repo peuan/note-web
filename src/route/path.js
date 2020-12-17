@@ -7,4 +7,5 @@ export const path = {
   register: "/register",
   tag: "/tag",
   createTag: "/tag/create",
+  updateNote: "/note/update",
 };

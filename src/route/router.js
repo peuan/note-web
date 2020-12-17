@@ -8,6 +8,7 @@ import {
   RegisterPage,
   CreateTagPage,
   CreateNotePage,
+  UpdateNotePage,
 } from "../pages";
 import PrivateRoute from "./private-route";
 
@@ -37,6 +38,11 @@ const routes = [
     path: path.createNote,
     exact: true,
     component: () => <PrivateRoute component={CreateNotePage} />,
+  },
+  {
+    path: `${path.updateNote}/:noteId`,
+    exact: true,
+    component: () => <PrivateRoute component={UpdateNotePage} />,
   },
 
   {
