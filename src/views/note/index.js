@@ -37,9 +37,8 @@ const ViewNote = () => {
     note.isLoading = true;
     setNotes(newNotes);
     await NoteService.moveNote(noteId, { noteView });
-    note.isLoading = false;
-    setNotes(newNotes);
-    getNotes();
+    const notesUpdated = [...newNotes].filter((note) => note.id !== noteId);
+    setNotes(notesUpdated);
   };
 
   const updateOption = async (noteId, option) => {
