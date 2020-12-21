@@ -43,7 +43,7 @@ const Layout = ({ children, selectedKey, defaultOpenKey }) => {
           onClick={(e) => onClickSidePanel(e)}
           defaultOpenKeys={[defaultOpenKey]}
         >
-          <Menu.Item key={path.home} icon={<HomeOutlined />}>
+          <Menu.Item key={getUrlKey(path.home)} icon={<HomeOutlined />}>
             Home
           </Menu.Item>
 
