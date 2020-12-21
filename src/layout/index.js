@@ -1,4 +1,4 @@
-import { Layout as AntLayout, Menu } from "antd";
+import { Layout as AntLayout, Menu, Badge, Avatar, Dropdown } from "antd";
 import { useContext, useState } from "react";
 import { path } from "../route";
 import { useHistory } from "react-router-dom";
@@ -15,10 +15,22 @@ import SubMenu from "antd/lib/menu/SubMenu";
 import { getUrlKey } from "../utils";
 
 const { Sider, Header, Content } = AntLayout;
+const menu = (
+  <Menu>
+    <Menu.Item key="0">
+      <a href="http://www.alipay.com/">1st menu item</a>
+    </Menu.Item>
+    <Menu.Item key="1">
+      <a href="http://www.taobao.com/">2nd menu item</a>
+    </Menu.Item>
+    <Menu.Divider />
+    <Menu.Item key="3">3rd menu item</Menu.Item>
+  </Menu>
+);
 
 const Layout = ({ children, selectedKey, defaultOpenKey }) => {
   const history = useHistory();
-  const { isAuthentication, logout, user } = useContext(AuthContext);
+  const { isAuthentication, logout } = useContext(AuthContext);
   const [collapsed, setCollapsed] = useState(false);
   const onCollapse = (collapsed) => {
     setCollapsed(collapsed);
@@ -72,8 +84,19 @@ const Layout = ({ children, selectedKey, defaultOpenKey }) => {
       </Sider>
       <AntLayout className="site-layout">
         <Header style={{ textAlign: "end" }}>
-          {user.firstName}
-          {user.lastName}
+          <span className="avatar-item">
+            <Badge count={1}>
+              <Dropdown overlay={menu} trigger={["click"]}>
+                <a onClick={(e) => e.preventDefault()}>
+                  <Avatar
+                    style={{ color: "#f56a00", backgroundColor: "#BFC9CA" }}
+                    size={40}
+                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                  />
+                </a>
+              </Dropdown>
+            </Badge>
+          </span>
         </Header>
         <Content style={{ margin: "0 16px" }}>
           {/* <Breadcrumb style={{ margin: "16px 0" }}>

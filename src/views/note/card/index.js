@@ -111,10 +111,10 @@ const CardNote = ({ note, moveNote, updateOption }) => {
               <DeleteOutlined style={{ color: "grey", fontSize: 20 }} />
             </Popconfirm>
           )}
+          <Link to={`${path.updateNote}/${note.id}`}>
+            <EditOutlined style={{ color: "grey", fontSize: 20 }} />
+          </Link>
         </Space>
-        <Link to={`${path.updateNote}/${note.id}`}>
-          <EditOutlined style={{ color: "grey", fontSize: 20 }} />
-        </Link>
       </Spin>
     </StyleCard>
   );
