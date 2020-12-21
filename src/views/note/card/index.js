@@ -9,9 +9,12 @@ import {
   PushpinFilled,
   PushpinOutlined,
   QuestionCircleOutlined,
+  EditOutlined,
 } from "@ant-design/icons";
 import { Comment, Popconfirm, Row, Space, Spin, Tooltip } from "antd";
-import { Fragment, useState } from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { path } from "../../../route";
 import { StyleCard } from "../style";
 
 const CardNote = ({ note, moveNote, updateOption }) => {
@@ -109,6 +112,9 @@ const CardNote = ({ note, moveNote, updateOption }) => {
             </Popconfirm>
           )}
         </Space>
+        <Link to={`${path.updateNote}/${note.id}`}>
+          <EditOutlined style={{ color: "grey", fontSize: 20 }} />
+        </Link>
       </Spin>
     </StyleCard>
   );
