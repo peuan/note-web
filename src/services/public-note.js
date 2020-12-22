@@ -20,8 +20,19 @@ class PublicNotes {
 
   async updateLike(noteId, data) {
     try {
+      const response = await Axios.put(`${this.url}/${noteId}/like`, data, {
+        headers: { Authorization: `Bearer ${AuthService.getAccessToken()}` },
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+  async updateDislike(noteId, data) {
+    try {
       const response = await Axios.put(
-        `${this.url}/public-notes/${noteId}/like`,
+        `
+        ${this.url}/${noteId}/dislike`,
         data,
         {
           headers: { Authorization: `Bearer ${AuthService.getAccessToken()}` },
@@ -32,17 +43,14 @@ class PublicNotes {
       throw error;
     }
   }
-  async updateDislike(noteId, data) {
+
+  async getUsersLike(noteId, data) {
     try {
-      const response = await Axios.put(
-        `
-        ${this.url}/public-notes/${noteId}/dislike`,
+      const response = await Axios.get(
+        `${this.url}/${noteId}/users-like`,
         data,
-        {
-          headers: { Authorization: `Bearer ${AuthService.getAccessToken()}` },
-        }
+        { headers: { Authorization: `Bearer ${AuthService.getAccessToken()}` } }
       );
-      return response.data;
     } catch (error) {
       throw error;
     }
