@@ -1,5 +1,16 @@
-import { Layout as AntLayout, Menu, Badge, Avatar, Dropdown } from "antd";
-import { useContext, useState } from "react";
+import {
+  Layout as AntLayout,
+  Menu,
+  Badge,
+  Avatar,
+  Dropdown,
+  Skeleton,
+  Divider,
+  Typography,
+  Row,
+  Button,
+} from "antd";
+import { useContext, useEffect, useState } from "react";
 import { path } from "../route";
 import { useHistory } from "react-router-dom";
 import {
@@ -13,27 +24,43 @@ import {
 import { AuthContext } from "../contexts";
 import SubMenu from "antd/lib/menu/SubMenu";
 import { getUrlKey } from "../utils";
+import { NotificationService } from "../services/noticfication";
 
 const { Sider, Header, Content } = AntLayout;
-const menu = (
-  <Menu>
-    <Menu.Item key="0">
-      <a href="http://www.alipay.com/">1st menu item</a>
-    </Menu.Item>
-    <Menu.Item key="1">
-      <a href="http://www.taobao.com/">2nd menu item</a>
-    </Menu.Item>
-    <Menu.Divider />
-    <Menu.Item key="3">3rd menu item</Menu.Item>
-  </Menu>
-);
+const { Paragraph } = Typography;
 
 const Layout = ({ children, selectedKey, defaultOpenKey }) => {
   const history = useHistory();
   const { isAuthentication, logout } = useContext(AuthContext);
   const [collapsed, setCollapsed] = useState(false);
+  const [notifications, setNotification] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [meta, setMeta] = useState({
+    currentPage: 0,
+    itemsPerPage: 5,
+  });
   const onCollapse = (collapsed) => {
     setCollapsed(collapsed);
+  };
+  useEffect(() => {
+    getNotification();
+  }, []);
+
+  const getNotification = async () => {
+    setIsLoading(true);
+    try {
+      const response = await NotificationService.getNotifications({
+        page: Number(meta.currentPage) + 1,
+        limit: meta.itemsPerPage,
+      });
+      setNotification(notifications.concat(response.items));
+      setMeta(response.meta);
+    } catch (error) {
+      console.log(error);
+    }
+
+    setIsLoading(false);
   };
 
   const onClickSidePanel = ({ key }) => {
@@ -43,6 +70,48 @@ const Layout = ({ children, selectedKey, defaultOpenKey }) => {
       history.push(path[key]);
     }
   };
+  const getNotificationType = {
+    LIKED_NOTE: "ถูกใจ",
+  };
+
+  const onVisibleChange = (visible) => {
+    setVisible(visible);
+  };
+  const menu = (
+    <Menu style={{ width: "400px" }}>
+      {notifications.map((notification) => {
+        return (
+          <Menu.Item style={{ maxWidth: "400px" }} key={notification.id}>
+            <Row justify="space-between" align="middle">
+              <div>
+                {notification.fromUser.firstName}
+                {notification.fromUser.lastName}
+                {getNotificationType[notification.type]}
+                <Paragraph
+                  ellipsis={{ rows: 1, expandable: false, symbol: "more" }}
+                >
+                  {notification.title}
+                </Paragraph>
+              </div>
+
+              {notification.read === false && (
+                <Badge color="#2db7f5" style={{ height: "fit-content" }} />
+              )}
+            </Row>
+            <Divider style={{ margin: "10px 0px" }} />
+          </Menu.Item>
+        );
+      })}
+      {isLoading && (
+        <Menu.Item>
+          <Skeleton active style={{ width: "100px" }} />
+        </Menu.Item>
+      )}
+      {Number(meta.currentPage) !== Number(meta.totalPages) && !isLoading && (
+        <Button onClick={getNotification}>More...</Button>
+      )}
+    </Menu>
+  );
 
   return (
     <AntLayout style={{ minHeight: "100vh" }}>
@@ -86,14 +155,17 @@ const Layout = ({ children, selectedKey, defaultOpenKey }) => {
         <Header style={{ textAlign: "end" }}>
           <span className="avatar-item">
             <Badge count={1}>
-              <Dropdown overlay={menu} trigger={["click"]}>
-                <a onClick={(e) => e.preventDefault()}>
-                  <Avatar
-                    style={{ color: "#f56a00", backgroundColor: "#BFC9CA" }}
-                    size={40}
-                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                  />
-                </a>
+              <Dropdown
+                overlay={menu}
+                trigger={["click"]}
+                visible={visible}
+                onVisibleChange={onVisibleChange}
+              >
+                <Avatar
+                  style={{ color: "#f56a00", backgroundColor: "#BFC9CA" }}
+                  size={40}
+                  src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                />
               </Dropdown>
             </Badge>
           </span>
