@@ -12,7 +12,7 @@ class PublicNotes {
       const response = await Axios.get(`${this.url}?${page}${limit}`, {
         headers: { Authorization: `Bearer ${AuthService.getAccessToken()}` },
       });
-      return response.data.items;
+      return response.data;
     } catch (error) {
       throw error;
     }

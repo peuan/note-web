@@ -1,6 +1,7 @@
-import { Row, Skeleton } from "antd";
+import { Button, Row, Skeleton } from "antd";
 import Layout from "antd/lib/layout/layout";
 import { useEffect, useState } from "react";
+import { NoteService } from "../../services";
 import { PublicNotesService } from "../../services/public-note";
 import CardHome from "./card";
 
@@ -9,6 +10,8 @@ const ViewHome = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [userLiked, setUserLiked] = useState([]);
   const [loadingUserLiked, setLoadingUserLiked] = useState(true);
+  const [meta, setMeta] = useState({ currentPage: 0, itemsPerPage: 5 });
+  const [isLoadingMore, setIsLoadingMore] = useState(true);
 
   useEffect(() => {
     getNotes();
@@ -16,9 +19,18 @@ const ViewHome = () => {
 
   const getNotes = async () => {
     setIsLoading(true);
-    const note = await PublicNotesService.getPublicNote({ page: 1, limit: 5 });
-    console.log(note);
-    setPublicNote(note);
+    try {
+      const response = await PublicNotesService.getPublicNote({
+        page: Number(meta.currentPage) + 1,
+        limit: meta.itemsPerPage,
+      });
+      console.log(response);
+      setPublicNote(publicNotes.concat(response.items));
+      setIsLoadingMore(false);
+      setMeta(response.meta);
+    } catch (error) {
+      console.log(error);
+    }
     setIsLoading(false);
   };
 
@@ -61,6 +73,9 @@ const ViewHome = () => {
             );
           })
         )}
+        {isLoadingMore && <Skeleton active />}
+        {Number(meta.currentPage) !== Number(meta.itemsPerPage) &&
+          !isLoadingMore && <Button onClick={getNotes}>More...</Button>}
       </Row>
     </Layout>
   );
