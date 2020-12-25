@@ -38,13 +38,13 @@ const CardNote = ({ note, moveNote, updateOption }) => {
     <Tooltip key="comment-basic-like" title="Like">
       <span onClick={like}>
         {action === "liked" ? <LikeFilled /> : <LikeOutlined />}
-        <span className="comment-action">{likes}</span>
+        <span>{likes}</span>
       </span>
     </Tooltip>,
     <Tooltip key="comment-basic-dislike" title="Dislike">
       <span onClick={dislike}>
         {action === "disliked" ? <DislikeFilled /> : <DislikeOutlined />}
-        <span className="comment-action">{dislikes}</span>
+        <span>{dislikes}</span>
       </span>
     </Tooltip>,
   ];

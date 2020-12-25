@@ -1,8 +1,8 @@
-import { LikeOutlined } from "@ant-design/icons";
+import { LikeFilled, LikeOutlined } from "@ant-design/icons";
 import { Comment, Space } from "antd";
 import { StyleCard } from "../../note/style";
 
-const CardHome = ({ note, likeNote }) => {
+const CardHome = ({ note, updateLike, usersLiked }) => {
   return (
     <StyleCard>
       <Comment
@@ -13,8 +13,15 @@ const CardHome = ({ note, likeNote }) => {
           </h3>
         }
       ></Comment>
-      <LikeOutlined onClick={likeNote} />
-      <Space></Space>
+      <Space>
+        {Boolean(note.isLiked) === false && (
+          <LikeOutlined onClick={() => updateLike(note.id, true)} />
+        )}
+        {Boolean(note.isLiked) === true && (
+          <LikeFilled onClick={() => updateLike(note.id, false)} />
+        )}
+        <span onMouseOver={usersLiked}>{note.totalLike}</span>
+      </Space>
     </StyleCard>
   );
 };
