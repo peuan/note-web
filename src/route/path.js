@@ -8,4 +8,5 @@ export const path = {
   tag: "/tag",
   createTag: "/tag/create",
   updateNote: "/note/update",
+  notificationNote: "/notification",
 };

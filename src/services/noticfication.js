@@ -17,5 +17,20 @@ class notification {
       throw error;
     }
   }
+
+  async updateNotification(notificationId, data) {
+    try {
+      const response = await Axios.put(
+        `${this.url}/${notificationId}/read`,
+        data,
+        {
+          headers: { Authorization: `Bearer ${AuthService.getAccessToken()}` },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 export const NotificationService = new notification();
