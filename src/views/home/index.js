@@ -1,6 +1,8 @@
-import { Row, Skeleton } from "antd";
+import { ConsoleSqlOutlined } from "@ant-design/icons";
+import { Button, Row, Skeleton } from "antd";
 import Layout from "antd/lib/layout/layout";
 import { useEffect, useState } from "react";
+import { NoteService } from "../../services";
 import { PublicNotesService } from "../../services/public-note";
 import CardHome from "./card";
 
@@ -9,17 +11,48 @@ const ViewHome = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [userLiked, setUserLiked] = useState([]);
   const [loadingUserLiked, setLoadingUserLiked] = useState(true);
+  const [meta, setMeta] = useState({ currentPage: 0, itemsPerPage: 5 });
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   useEffect(() => {
     getNotes();
   }, []);
 
+  // const getNotes = async () => {
+  //   setIsLoading(true);
+  //   try {
+  //     const response = await PublicNotesService.getPublicNote({
+  //       page: 1,
+  //       limit: 10,
+  //     });
+  //     console.log(response);
+  //     setPublicNote(response.items);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   setIsLoading(false);
+  // };
+
   const getNotes = async () => {
-    setIsLoading(true);
-    const note = await PublicNotesService.getPublicNote({ page: 1, limit: 5 });
-    console.log(note);
-    setPublicNote(note);
+    if (meta.currentPage == 0) {
+      setIsLoading(true);
+    } else {
+      setIsLoadingMore(true);
+    }
+
+    try {
+      const response = await PublicNotesService.getPublicNote({
+        page: Number(meta.currentPage) + 1,
+        limit: meta.itemsPerPage,
+      });
+      console.log(response);
+      setPublicNote(publicNotes.concat(response.items));
+      setMeta(response.meta);
+    } catch (error) {
+      console.log(error);
+    }
     setIsLoading(false);
+    setIsLoadingMore(false);
   };
 
   const updateLike = async (noteId, isLiked) => {
@@ -43,6 +76,9 @@ const ViewHome = () => {
   const usersLiked = async (noteId) => {
     setLoadingUserLiked(true);
     const users = await PublicNotesService.getUsersLike(noteId);
+    console.log(users);
+    setUserLiked(users);
+    console.log(userLiked);
   };
 
   return (
@@ -54,6 +90,7 @@ const ViewHome = () => {
           publicNotes.map((note) => {
             return (
               <CardHome
+                key={note.id}
                 note={note}
                 usersLiked={usersLiked}
                 updateLike={updateLike}
@@ -61,6 +98,9 @@ const ViewHome = () => {
             );
           })
         )}
+        {isLoadingMore && <Skeleton active />}
+        {Number(meta.currentPage) !== Number(meta.itemsPerPage) &&
+          !isLoading && <Button onClick={getNotes}>More...</Button>}
       </Row>
     </Layout>
   );
