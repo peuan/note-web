@@ -46,11 +46,10 @@ class PublicNotes {
 
   async getUsersLike(noteId, data) {
     try {
-      const response = await Axios.get(
-        `${this.url}/${noteId}/users-like`,
-        data,
-        { headers: { Authorization: `Bearer ${AuthService.getAccessToken()}` } }
-      );
+      const response = await Axios.get(`${this.url}/${noteId}/likes`, data, {
+        headers: { Authorization: `Bearer ${AuthService.getAccessToken()}` },
+      });
+      return response.data;
     } catch (error) {
       throw error;
     }
