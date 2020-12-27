@@ -6,3 +6,4 @@ export { default as CreateTagPage } from "./tag/create";
 export { default as CreateNotePage } from "./note/create";
 export { default as TagPage } from "./tag";
 export { default as UpdateNotePage } from "./note/update";
+export { default as NotificationPage } from "./note/notification";

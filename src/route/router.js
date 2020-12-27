@@ -9,6 +9,7 @@ import {
   CreateTagPage,
   CreateNotePage,
   UpdateNotePage,
+  NotificationPage,
 } from "../pages";
 import PrivateRoute from "./private-route";
 
@@ -60,6 +61,11 @@ const routes = [
     path: path.tag,
     exact: true,
     component: () => <PrivateRoute component={TagPage} />,
+  },
+  {
+    path: `${path.notificationNote}/:notificationId`,
+    exact: true,
+    component: () => <PrivateRoute component={NotificationPage} />,
   },
 
   {
