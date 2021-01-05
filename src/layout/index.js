@@ -24,7 +24,7 @@ import {
 import { AuthContext } from "../contexts";
 import SubMenu from "antd/lib/menu/SubMenu";
 import { getUrlKey } from "../utils";
-import { NotificationService } from "../services/noticfication";
+import { NotificationService } from "../services";
 
 const { Sider, Header, Content } = AntLayout;
 const { Paragraph } = Typography;
@@ -74,6 +74,26 @@ const Layout = ({ children, selectedKey, defaultOpenKey }) => {
     LIKED_NOTE: "ถูกใจ",
   };
 
+  const onClickNotification = async (notification) => {
+    setVisible(false);
+    console.log(notification);
+    const notificationId = notification.id;
+    if (notification.read === false) {
+      const response = NotificationService.readNotification(notification.id);
+      console.log(response);
+      const index = notifications.findIndex(
+        (notification) => notification.id === notificationId
+      );
+      const newNotification = [...notifications];
+      const notificationNote = newNotification[index];
+      notificationNote.read = true;
+      setNotification(newNotification);
+    }
+    if (notification.type === "LIKED_NOTE") {
+      history.push(`${path.notificationNote}/${notification.noteId}`);
+    }
+  };
+
   const onVisibleChange = (visible) => {
     setVisible(visible);
   };
@@ -81,7 +101,11 @@ const Layout = ({ children, selectedKey, defaultOpenKey }) => {
     <Menu style={{ width: "400px" }}>
       {notifications.map((notification) => {
         return (
-          <Menu.Item style={{ maxWidth: "400px" }} key={notification.id}>
+          <Menu.Item
+            onClick={() => onClickNotification(notification)}
+            style={{ maxWidth: "400px" }}
+            key={notification.id}
+          >
             <Row justify="space-between" align="middle">
               <div>
                 {notification.fromUser.firstName}
