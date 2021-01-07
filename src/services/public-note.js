@@ -44,9 +44,19 @@ class PublicNotes {
     }
   }
 
-  async getUsersLike(noteId, data) {
+  async getUsersLike(noteId) {
     try {
-      const response = await Axios.get(`${this.url}/${noteId}/likes`, data, {
+      const response = await Axios.get(`${this.url}/${noteId}/likes`, {
+        headers: { Authorization: `Bearer ${AuthService.getAccessToken()}` },
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+  async getPublicNoteById(noteId) {
+    try {
+      const response = await Axios.get(`${this.url}/${noteId}`, {
         headers: { Authorization: `Bearer ${AuthService.getAccessToken()}` },
       });
       return response.data;
