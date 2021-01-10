@@ -48,6 +48,7 @@ const NotificationPage = () => {
     console.log(users);
     setUserLiked(users);
   };
+
   return (
     <Layout selectedKey={path.notificationNote} defaultOpenKey="note">
       {isLoading ? (

@@ -28,6 +28,17 @@ class PublicNotes {
       throw error;
     }
   }
+
+  async getShowLikes(noteId) {
+    try {
+      const response = await Axios.get(`${this.url}/${noteId}/likes`, {
+        headers: { Authorization: `Bearer ${AuthService.getAccessToken()}` },
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
   async updateDislike(noteId, data) {
     try {
       const response = await Axios.put(
