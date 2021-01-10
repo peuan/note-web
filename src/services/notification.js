@@ -18,7 +18,7 @@ class notification {
     }
   }
 
-  async updateNotification(notificationId, data) {
+  async readNotification(notificationId, data) {
     try {
       const response = await Axios.put(
         `${this.url}/${notificationId}/read`,

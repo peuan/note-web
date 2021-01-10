@@ -1,15 +1,15 @@
 import { LikeFilled, LikeOutlined, LoadingOutlined } from "@ant-design/icons";
 import { Comment, Space, Tooltip, Spin } from "antd";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { PublicNotesService } from "../../../services";
-import { StyleCard } from "../../note/style";
-
-const CardHome = ({ note, updateLike, usersLiked }) => {
+import { StyleCard } from "./style";
+const ViewNotificationNote = ({ note, updateLikeNoteId }) => {
   const [userLikes, setUserLikes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isUserLikeLoaded, setIsUserLikeLoaded] = useState(false);
+
   const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
-  const getUserLikes = async (noteId) => {
+  const getShowLikes = async (noteId) => {
     if (isUserLikeLoaded === true || isLoading === true) {
       return;
     }
@@ -36,35 +36,36 @@ const CardHome = ({ note, updateLike, usersLiked }) => {
       ></Comment>
       <Space>
         {Boolean(note.isLiked) === false && (
-          <LikeOutlined onClick={() => updateLike(note.id, true)} />
+          <LikeOutlined onClick={() => updateLikeNoteId(true)} />
         )}
         {Boolean(note.isLiked) === true && (
-          <Tooltip
-            placement="bottom"
-            title={
-              isLoading ? (
-                <Spin indicator={antIcon} />
-              ) : (
-                userLikes.map((userLike) => {
-                  return (
-                    <p>
-                      {userLike.user.firstName}
-                      {userLike.user.lastName}
-                    </p>
-                  );
-                })
-              )
-            }
-          >
-            <LikeFilled
-              onMouseOver={() => getUserLikes(note.id)}
-              onClick={() => updateLike(note.id, false)}
-            />
-          </Tooltip>
+          <Fragment>
+            <Tooltip
+              placement="bottom"
+              title={
+                isLoading ? (
+                  <Spin indicator={antIcon} />
+                ) : (
+                  userLikes.map((userLike) => {
+                    return (
+                      <p key={userLike.id}>
+                        {userLike.user.firstName}
+                        {userLike.user.lastName}
+                      </p>
+                    );
+                  })
+                )
+              }
+            >
+              <LikeFilled
+                onMouseOver={() => getShowLikes(note.id)}
+                onClick={() => updateLikeNoteId(false)}
+              />
+            </Tooltip>
+          </Fragment>
         )}
       </Space>
     </StyleCard>
   );
 };
-
-export default CardHome;
+export default ViewNotificationNote;

@@ -1,5 +1,6 @@
-import styled from "styled-components";
 import { Card } from "antd";
+import styled from "styled-components";
+
 export const StyleCard = styled(Card)`
   width: 100%;
   font-weight: 500;

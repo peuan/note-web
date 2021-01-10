@@ -63,7 +63,7 @@ const routes = [
     component: () => <PrivateRoute component={TagPage} />,
   },
   {
-    path: `${path.notificationNote}/:notificationId`,
+    path: `${path.notificationNote}/:noteId`,
     exact: true,
     component: () => <PrivateRoute component={NotificationPage} />,
   },

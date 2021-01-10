@@ -1,45 +1,22 @@
-import { ConsoleSqlOutlined } from "@ant-design/icons";
 import { Button, Row, Skeleton } from "antd";
 import Layout from "antd/lib/layout/layout";
 import { useEffect, useState } from "react";
-import { NoteService } from "../../services";
 import { PublicNotesService } from "../../services/public-note";
 import CardHome from "./card";
 
 const ViewHome = () => {
   const [publicNotes, setPublicNote] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [userLiked, setUserLiked] = useState([]);
   const [loadingUserLiked, setLoadingUserLiked] = useState(true);
   const [meta, setMeta] = useState({ currentPage: 0, itemsPerPage: 5 });
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   useEffect(() => {
     getNotes();
   }, []);
 
-  // const getNotes = async () => {
-  //   setIsLoading(true);
-  //   try {
-  //     const response = await PublicNotesService.getPublicNote({
-  //       page: 1,
-  //       limit: 10,
-  //     });
-  //     console.log(response);
-  //     setPublicNote(response.items);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  //   setIsLoading(false);
-  // };
-
   const getNotes = async () => {
-    if (meta.currentPage == 0) {
-      setIsLoading(true);
-    } else {
-      setIsLoadingMore(true);
-    }
-
+    setIsLoading(true);
     try {
       const response = await PublicNotesService.getPublicNote({
         page: Number(meta.currentPage) + 1,
@@ -52,7 +29,6 @@ const ViewHome = () => {
       console.log(error);
     }
     setIsLoading(false);
-    setIsLoadingMore(false);
   };
 
   const updateLike = async (noteId, isLiked) => {
@@ -84,21 +60,17 @@ const ViewHome = () => {
   return (
     <Layout>
       <Row>
-        {isLoading ? (
-          <Skeleton active />
-        ) : (
-          publicNotes.map((note) => {
-            return (
-              <CardHome
-                key={note.id}
-                note={note}
-                usersLiked={usersLiked}
-                updateLike={updateLike}
-              />
-            );
-          })
-        )}
-        {isLoadingMore && <Skeleton active />}
+        {publicNotes.map((note) => {
+          return (
+            <CardHome
+              key={note.id}
+              note={note}
+              usersLiked={usersLiked}
+              updateLike={updateLike}
+            />
+          );
+        })}
+        {isLoading && <Skeleton active />}
         {Number(meta.currentPage) !== Number(meta.itemsPerPage) &&
           !isLoading && <Button onClick={getNotes}>More...</Button>}
       </Row>
