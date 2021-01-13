@@ -1,5 +1,5 @@
 import Icon from "@ant-design/icons";
-import { Card, Row } from "antd";
+import { Card, Row, Button } from "antd";
 import styled from "styled-components";
 
 export const StyleCard = styled(Card)`
@@ -13,4 +13,11 @@ export const StyleCard = styled(Card)`
 
 export const StyleRow = styled(Row)`
   color: grey;
+`;
+export const StyledButton = styled(Button)`
+  border: 0px;
+  &:hover {
+    color: palevioletred;
+    border-color: red;
+  }
 `;
