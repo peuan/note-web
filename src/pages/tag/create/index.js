@@ -100,15 +100,13 @@ const CreateTagPage = () => {
                   value={inputValue}
                   type="text"
                   style={{ width: 85 }}
-
-                  // onPressEnter={onSummitCreateTag}
                 />
               </Form.Item>
             </Spin>
           )}
           {!inputVisible && (
             <Tag onClick={showInput}>
-              <PlusOutlined /> กรอกแทก
+              <PlusOutlined /> กรอก Tag
             </Tag>
           )}
         </Form>

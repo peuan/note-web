@@ -11,16 +11,7 @@ import {
   QuestionCircleOutlined,
   EditOutlined,
 } from "@ant-design/icons";
-import {
-  Comment,
-  Popconfirm,
-  Row,
-  Col,
-  Space,
-  Spin,
-  Tooltip,
-  Button,
-} from "antd";
+import { Comment, Popconfirm, Row, Space, Spin, Tooltip, Divider } from "antd";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { path } from "../../../route";
@@ -89,8 +80,15 @@ const CardNote = ({ note, moveNote, updateOption }) => {
             </h3>
           }
         ></Comment>
-        <Row>
-          <Space>
+        <Row justify="space-around">
+          <Space
+            split={<Divider type="vertical" />}
+            style={{
+              justifyContent: "space-around",
+              display: "flex",
+              width: "100%",
+            }}
+          >
             {note.noteView !== "ALL" && (
               <Popconfirm
                 title="Are you sure move to ALL NOTE?"
@@ -98,12 +96,12 @@ const CardNote = ({ note, moveNote, updateOption }) => {
                 key={note.id}
                 icon={<QuestionCircleOutlined style={{ color: "green" }} />}
               >
-                <Button size="large">
+                <StyleButton size="middle">
                   <ProfileOutlined
                     style={{ color: "grey", fontSize: 20, borderRight: 1 }}
                   />
                   ย้ายไป All Note
-                </Button>
+                </StyleButton>
               </Popconfirm>
             )}
             {note.noteView !== "ARCHIVE" && (
@@ -113,7 +111,7 @@ const CardNote = ({ note, moveNote, updateOption }) => {
                 key={note.id}
                 icon={<QuestionCircleOutlined style={{ color: "orange" }} />}
               >
-                <Button size="large">
+                <StyleButton size="middle">
                   <FolderAddOutlined
                     style={{
                       color: "grey",
@@ -122,7 +120,7 @@ const CardNote = ({ note, moveNote, updateOption }) => {
                     }}
                   />
                   ย้ายโน๊ตไป ARCHIVE
-                </Button>
+                </StyleButton>
               </Popconfirm>
             )}
             {note.noteView !== "TRASH" && (
@@ -132,18 +130,18 @@ const CardNote = ({ note, moveNote, updateOption }) => {
                 key={note.id}
                 icon={<QuestionCircleOutlined style={{ color: "red" }} />}
               >
-                <Button size="large">
+                <StyleButton size="middle">
                   <DeleteOutlined style={{ color: "grey", fontSize: 20 }} />
                   ลบโน๊ต
-                </Button>
+                </StyleButton>
               </Popconfirm>
             )}
-            <Button size="large">
+            <StyleButton size="middle">
               <Link to={`${path.updateNote}/${note.id}`}>
                 <EditOutlined style={{ color: "grey", fontSize: 20 }} />
                 แก้ไขโน๊ต
               </Link>
-            </Button>
+            </StyleButton>
           </Space>
         </Row>
       </Spin>
