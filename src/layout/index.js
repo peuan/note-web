@@ -20,6 +20,7 @@ import {
   UserOutlined,
   TagOutlined,
   StopOutlined,
+  BellOutlined,
 } from "@ant-design/icons";
 import { AuthContext } from "../contexts";
 import SubMenu from "antd/lib/menu/SubMenu";
@@ -186,9 +187,9 @@ const Layout = ({ children, selectedKey, defaultOpenKey }) => {
                 onVisibleChange={onVisibleChange}
               >
                 <Avatar
-                  style={{ color: "#f56a00", backgroundColor: "#BFC9CA" }}
+                  icon={<BellOutlined />}
+                  style={{ color: "white", backgroundColor: "#BFC9CA" }}
                   size={40}
-                  src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
                 />
               </Dropdown>
             </Badge>
