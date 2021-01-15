@@ -75,6 +75,7 @@ const CreateTagPage = () => {
           name="global_state"
           layout="inline"
           form={form}
+          style={{ display: "flex", alignItems: "center" }}
         >
           <Spin spinning={isLoadingTags}>
             {tags.map((tag) => {
@@ -99,7 +100,7 @@ const CreateTagPage = () => {
                   name="tag"
                   value={inputValue}
                   type="text"
-                  style={{ width: 85 }}
+                  style={{ width: 85, height: "24px" }}
                 />
               </Form.Item>
             </Spin>

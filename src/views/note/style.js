@@ -21,6 +21,7 @@ export const StyleButton = styled(Button)`
   display: inline-block;
   transition-duration: 0.1s;
   color: black;
+  box-shadow: none;
   :hover {
     background-color: #e7e7e7;
     color: white;
