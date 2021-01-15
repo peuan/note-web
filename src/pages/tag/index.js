@@ -1,7 +1,7 @@
 import Layout from "../../layout";
 import { path } from "../../route";
 import { Tag, Input } from "antd";
-
+import { StyleInput } from "./style";
 import { useState } from "react";
 
 const TagPage = () => {
@@ -33,14 +33,14 @@ const TagPage = () => {
         );
       })}
       {inputVisible && (
-        <Input
+        <StyleInput
           value={inputValue}
           type="text"
-          style={{ width: 100 }}
+          style={{ width: 80 }}
           onChange={handleInputChange}
           onBlur={handleInputConfirm}
           onPressEnter={handleInputConfirm}
-        ></Input>
+        ></StyleInput>
       )}
       {!inputVisible && <Tag onClick={showInput}>กรอก Tag</Tag>}
     </Layout>

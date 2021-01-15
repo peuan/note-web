@@ -8,3 +8,7 @@ export const StyleCard = styled(Card)`
   border-radius: 8px;
   box-shadow: 2px 2px 3px #aaaaaa;
 `;
+export const StyledToolTip = styled.div`
+  color: yellow;
+  background-color: green;
+`;

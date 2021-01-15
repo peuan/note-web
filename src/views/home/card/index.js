@@ -2,13 +2,13 @@ import { LikeFilled, LikeOutlined, LoadingOutlined } from "@ant-design/icons";
 import { Comment, Space, Tooltip, Spin } from "antd";
 import { useState } from "react";
 import { PublicNotesService } from "../../../services";
-import { StyleCard } from "../../note/style";
+import { StyleCard, StyledToolTip } from "../../home/card/style";
 
-const CardHome = ({ note, updateLike, usersLiked }) => {
+const CardHome = ({ note, updateLike }) => {
   const [userLikes, setUserLikes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isUserLikeLoaded, setIsUserLikeLoaded] = useState(false);
-  const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+  const antIcon = <LoadingOutlined style={{ fontSize: 20 }} spin />;
   const getUserLikes = async (noteId) => {
     if (isUserLikeLoaded === true || isLoading === true) {
       return;

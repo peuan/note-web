@@ -11,11 +11,11 @@ import {
   QuestionCircleOutlined,
   EditOutlined,
 } from "@ant-design/icons";
-import { Comment, Popconfirm, Row, Space, Spin, Tooltip } from "antd";
+import { Comment, Popconfirm, Row, Space, Spin, Tooltip, Divider } from "antd";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { path } from "../../../route";
-import { StyleCard } from "../style";
+import { StyleButton, StyleCard } from "../style";
 
 const CardNote = ({ note, moveNote, updateOption }) => {
   const [likes, setLikes] = useState(0);
@@ -80,41 +80,70 @@ const CardNote = ({ note, moveNote, updateOption }) => {
             </h3>
           }
         ></Comment>
-        <Space>
-          {note.noteView !== "ALL" && (
-            <Popconfirm
-              title="Are you sure move to ALL NOTE?"
-              onConfirm={() => moveNote(note.id, "ALL")}
-              key={note.id}
-              icon={<QuestionCircleOutlined style={{ color: "green" }} />}
-            >
-              <ProfileOutlined style={{ color: "grey", fontSize: 20 }} />
-            </Popconfirm>
-          )}
-          {note.noteView !== "ARCHIVE" && (
-            <Popconfirm
-              title="Are you sure archive this note?"
-              onConfirm={() => moveNote(note.id, "ARCHIVE")}
-              key={note.id}
-              icon={<QuestionCircleOutlined style={{ color: "orange" }} />}
-            >
-              <FolderAddOutlined style={{ color: "grey", fontSize: 20 }} />
-            </Popconfirm>
-          )}
-          {note.noteView !== "TRASH" && (
-            <Popconfirm
-              title="Are you sure delete this note?"
-              onConfirm={() => moveNote(note.id, "TRASH")}
-              key={note.id}
-              icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-            >
-              <DeleteOutlined style={{ color: "grey", fontSize: 20 }} />
-            </Popconfirm>
-          )}
-          <Link to={`${path.updateNote}/${note.id}`}>
-            <EditOutlined style={{ color: "grey", fontSize: 20 }} />
-          </Link>
-        </Space>
+        <Row justify="space-around">
+          <Space
+            split={<Divider type="vertical" />}
+            style={{
+              justifyContent: "space-around",
+              display: "flex",
+              width: "100%",
+            }}
+          >
+            {note.noteView !== "ALL" && (
+              <Popconfirm
+                title="Are you sure move to ALL NOTE?"
+                onConfirm={() => moveNote(note.id, "ALL")}
+                key={note.id}
+                icon={<QuestionCircleOutlined style={{ color: "green" }} />}
+              >
+                <StyleButton size="middle">
+                  <ProfileOutlined
+                    style={{ color: "grey", fontSize: 20, borderRight: 1 }}
+                  />
+                  ย้ายไป All Note
+                </StyleButton>
+              </Popconfirm>
+            )}
+            {note.noteView !== "ARCHIVE" && (
+              <Popconfirm
+                title="Are you sure archive this note?"
+                onConfirm={() => moveNote(note.id, "ARCHIVE")}
+                key={note.id}
+                icon={<QuestionCircleOutlined style={{ color: "orange" }} />}
+              >
+                <StyleButton size="middle">
+                  <FolderAddOutlined
+                    style={{
+                      color: "grey",
+                      fontSize: 20,
+                      borderRightColor: "azure",
+                    }}
+                  />
+                  ย้ายโน๊ตไป ARCHIVE
+                </StyleButton>
+              </Popconfirm>
+            )}
+            {note.noteView !== "TRASH" && (
+              <Popconfirm
+                title="Are you sure delete this note?"
+                onConfirm={() => moveNote(note.id, "TRASH")}
+                key={note.id}
+                icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+              >
+                <StyleButton size="middle">
+                  <DeleteOutlined style={{ color: "grey", fontSize: 20 }} />
+                  ลบโน๊ต
+                </StyleButton>
+              </Popconfirm>
+            )}
+            <StyleButton size="middle">
+              <Link to={`${path.updateNote}/${note.id}`}>
+                <EditOutlined style={{ color: "grey", fontSize: 20 }} />
+                แก้ไขโน๊ต
+              </Link>
+            </StyleButton>
+          </Space>
+        </Row>
       </Spin>
     </StyleCard>
   );

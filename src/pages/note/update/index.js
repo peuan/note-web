@@ -1,4 +1,4 @@
-import { Spin } from "antd";
+import { Skeleton } from "antd";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import Layout from "../../../layout";
@@ -6,7 +6,7 @@ import { path } from "../../../route";
 import { NoteService } from "../../../services";
 import { ViewUpdateNote } from "../../../views";
 const UpdateNotePage = () => {
-  const param = useParams();
+  const { noteId } = useParams();
   const [note, setNote] = useState();
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -14,16 +14,13 @@ const UpdateNotePage = () => {
   }, []);
 
   const getNoteById = async () => {
-    const note = await NoteService.getNotesById(param.noteId);
+    const note = await NoteService.getNotesById(noteId);
     setNote(note);
     setIsLoading(false);
   };
-  if (isLoading) {
-    return <Spin />;
-  }
   return (
     <Layout selectedKey={path.updateNote} defaultOpenKey="note">
-      <ViewUpdateNote note={note} />
+      {isLoading ? <Skeleton active /> : <ViewUpdateNote note={note} />}
     </Layout>
   );
 };
