@@ -26,6 +26,7 @@ import { AuthContext } from "../contexts";
 import SubMenu from "antd/lib/menu/SubMenu";
 import { getUrlKey } from "../utils";
 import { NotificationService } from "../services";
+import { Footer } from "antd/lib/layout/layout";
 
 const { Sider, Header, Content } = AntLayout;
 const { Paragraph } = Typography;
@@ -104,7 +105,12 @@ const Layout = ({ children, selectedKey, defaultOpenKey }) => {
         return (
           <Menu.Item
             onClick={() => onClickNotification(notification)}
-            style={{ maxWidth: "400px" }}
+            style={{
+              maxWidth: "400px",
+              paddingTop: "10px",
+              padding: "0px",
+              paddingLeft: "10px",
+            }}
             key={notification.id}
           >
             <Row justify="space-between" align="middle">
@@ -196,10 +202,6 @@ const Layout = ({ children, selectedKey, defaultOpenKey }) => {
           </span>
         </Header>
         <Content style={{ margin: "0 16px" }}>
-          {/* <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-          </Breadcrumb> */}
           <div
             className="site-layout-background"
             style={{ padding: 40, minHeight: 360 }}
@@ -207,9 +209,9 @@ const Layout = ({ children, selectedKey, defaultOpenKey }) => {
             {children}
           </div>
         </Content>
-        {/* <Footer style={{ textAlign: "center" }}>
+        <Footer style={{ textAlign: "center" }}>
           Ant Design ©2018 Created by Ant UED
-        </Footer> */}
+        </Footer>
       </AntLayout>
     </AntLayout>
   );
