@@ -50,7 +50,7 @@ const CardNote = ({ note, moveNote, updateOption }) => {
   ];
 
   return (
-    <StyleCard key={note.id}>
+    <StyleCard key={note.id} bodyStyle={{ paddingBottom: "10px" }}>
       <Spin spinning={Boolean(note.isLoading)}>
         {note.noteView !== "TRASH" && (
           <Row
@@ -80,9 +80,9 @@ const CardNote = ({ note, moveNote, updateOption }) => {
             </h3>
           }
         ></Comment>
-        <Row justify="space-around">
+        <Row justify="space-around" style={{ borderTop: "1px solid #f0f0f0" }}>
           <Space
-            split={<Divider type="vertical" />}
+            split={<Divider type="vertical" style={{ height: "1.5em" }} />}
             style={{
               justifyContent: "space-around",
               display: "flex",
