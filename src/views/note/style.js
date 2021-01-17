@@ -23,7 +23,7 @@ export const StyleButton = styled(Button)`
   color: black;
   box-shadow: none;
   :hover {
-    background-color: #e7e7e7;
+    background-color: ${(prop) => prop.buttonColor};
     color: white;
   }
 `;
