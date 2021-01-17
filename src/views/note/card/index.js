@@ -1,16 +1,15 @@
 import {
-  DeleteOutlined,
   DislikeFilled,
   DislikeOutlined,
-  FolderAddOutlined,
   LikeFilled,
   LikeOutlined,
-  ProfileOutlined,
   PushpinFilled,
   PushpinOutlined,
   QuestionCircleOutlined,
-  EditOutlined,
 } from "@ant-design/icons";
+import { IoIosRedo, IoMdTrash } from "react-icons/io";
+import { FaEdit } from "react-icons/fa";
+import { BsFillFolderSymlinkFill } from "react-icons/bs";
 import { Comment, Popconfirm, Row, Space, Spin, Tooltip, Divider } from "antd";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -96,8 +95,16 @@ const CardNote = ({ note, moveNote, updateOption }) => {
                 key={note.id}
                 icon={<QuestionCircleOutlined style={{ color: "green" }} />}
               >
-                <StyleButton size="middle">
-                  <ProfileOutlined
+                <StyleButton
+                  size="middle"
+                  buttonColor="#85C1E9 "
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    width: "100%",
+                  }}
+                >
+                  <IoIosRedo
                     style={{ color: "grey", fontSize: 20, borderRight: 1 }}
                   />
                   ย้ายไป All Note
@@ -111,8 +118,16 @@ const CardNote = ({ note, moveNote, updateOption }) => {
                 key={note.id}
                 icon={<QuestionCircleOutlined style={{ color: "orange" }} />}
               >
-                <StyleButton size="middle">
-                  <FolderAddOutlined
+                <StyleButton
+                  size="middle"
+                  buttonColor="#7DCEA0"
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    width: "100%",
+                  }}
+                >
+                  <BsFillFolderSymlinkFill
                     style={{
                       color: "grey",
                       fontSize: 20,
@@ -130,15 +145,31 @@ const CardNote = ({ note, moveNote, updateOption }) => {
                 key={note.id}
                 icon={<QuestionCircleOutlined style={{ color: "red" }} />}
               >
-                <StyleButton size="middle">
-                  <DeleteOutlined style={{ color: "grey", fontSize: 20 }} />
+                <StyleButton
+                  size="middle"
+                  buttonColor="#F5B7B1 "
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    width: "100%",
+                  }}
+                >
+                  <IoMdTrash style={{ color: "grey", fontSize: 20 }} />
                   ลบโน๊ต
                 </StyleButton>
               </Popconfirm>
             )}
-            <StyleButton size="middle">
+            <StyleButton
+              size="middle"
+              buttonColor="#F9E79F "
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+              }}
+            >
               <Link to={`${path.updateNote}/${note.id}`}>
-                <EditOutlined style={{ color: "grey", fontSize: 20 }} />
+                <FaEdit style={{ color: "grey", fontSize: 20 }} />
                 แก้ไขโน๊ต
               </Link>
             </StyleButton>

@@ -2,7 +2,7 @@ import { LikeFilled, LikeOutlined, LoadingOutlined } from "@ant-design/icons";
 import { Comment, Space, Tooltip, Spin } from "antd";
 import { useState } from "react";
 import { PublicNotesService } from "../../../services";
-import { StyleCard, StyledToolTip } from "../../home/card/style";
+import { StyleCard } from "../../home/card/style";
 
 const CardHome = ({ note, updateLike }) => {
   const [userLikes, setUserLikes] = useState([]);

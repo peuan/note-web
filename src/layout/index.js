@@ -8,11 +8,10 @@ import {
   Divider,
   Typography,
   Row,
-  Button,
 } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { path } from "../route";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   HomeOutlined,
   DesktopOutlined,
@@ -139,7 +138,12 @@ const Layout = ({ children, selectedKey, defaultOpenKey }) => {
         </Menu.Item>
       )}
       {Number(meta.currentPage) !== Number(meta.totalPages) && !isLoading && (
-        <Button onClick={getNotification}>More...</Button>
+        <Link
+          style={{ justifyContent: "center", display: "flex", width: "100%" }}
+          onClick={getNotification}
+        >
+          เพิ่มเติม
+        </Link>
       )}
     </Menu>
   );
