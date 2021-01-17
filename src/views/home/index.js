@@ -1,4 +1,4 @@
-import { Divider, Skeleton } from "antd";
+import { Col, Divider, Row, Skeleton } from "antd";
 import Layout from "antd/lib/layout/layout";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -63,16 +63,20 @@ const ViewHome = () => {
       <Divider orientation="left">
         <h1 style={{ fontSize: 30 }}>หน้าแรก</h1>
       </Divider>
-      {publicNotes.map((note) => {
-        return (
-          <CardHome
-            key={note.id}
-            note={note}
-            usersLiked={usersLiked}
-            updateLike={updateLike}
-          />
-        );
-      })}
+      <Row gutter={12}>
+        {publicNotes.map((note) => {
+          return (
+            <Col span={12}>
+              <CardHome
+                key={note.id}
+                note={note}
+                usersLiked={usersLiked}
+                updateLike={updateLike}
+              />
+            </Col>
+          );
+        })}
+      </Row>
       {isLoading && <Skeleton active />}
       {Number(meta.currentPage) !== Number(meta.itemsPerPage) && !isLoading && (
         <Link

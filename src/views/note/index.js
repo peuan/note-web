@@ -1,4 +1,4 @@
-import { Button, Row, Skeleton, Tabs } from "antd";
+import { Row, Skeleton, Tabs } from "antd";
 import { useEffect, useState, React } from "react";
 import { NoteService } from "../../services";
 import Layout from "antd/lib/layout/layout";
