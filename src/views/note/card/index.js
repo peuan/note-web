@@ -7,8 +7,9 @@ import {
   PushpinOutlined,
   QuestionCircleOutlined,
 } from "@ant-design/icons";
-import { IoIosRedo, IoMdTrash } from "react-icons/io";
+import { IoMdTrash } from "react-icons/io";
 import { FaEdit } from "react-icons/fa";
+import { FaShareSquare } from "react-icons/fa";
 import { BsFillFolderSymlinkFill } from "react-icons/bs";
 import { Comment, Popconfirm, Row, Space, Spin, Tooltip, Divider } from "antd";
 import { useState } from "react";
@@ -49,7 +50,7 @@ const CardNote = ({ note, moveNote, updateOption }) => {
   ];
 
   return (
-    <StyleCard key={note.id} bodyStyle={{ paddingBottom: "10px" }}>
+    <StyleCard key={note.id} bodyStyle={{ paddingBottom: "1px" }}>
       <Spin spinning={Boolean(note.isLoading)}>
         {note.noteView !== "TRASH" && (
           <Row
@@ -86,6 +87,8 @@ const CardNote = ({ note, moveNote, updateOption }) => {
               justifyContent: "space-around",
               display: "flex",
               width: "100%",
+              paddingTop: "5px",
+              paddingBottom: "5px",
             }}
           >
             {note.noteView !== "ALL" && (
@@ -104,8 +107,13 @@ const CardNote = ({ note, moveNote, updateOption }) => {
                     width: "100%",
                   }}
                 >
-                  <IoIosRedo
-                    style={{ color: "grey", fontSize: 20, borderRight: 1 }}
+                  <FaShareSquare
+                    style={{
+                      color: "grey",
+                      fontSize: 20,
+                      borderRight: 1,
+                      display: "flex",
+                    }}
                   />
                   ย้ายไป All Note
                 </StyleButton>
@@ -131,10 +139,11 @@ const CardNote = ({ note, moveNote, updateOption }) => {
                     style={{
                       color: "grey",
                       fontSize: 20,
+                      display: "flex",
                       borderRightColor: "azure",
                     }}
                   />
-                  ย้ายโน๊ตไป ARCHIVE
+                  ARCHIVE
                 </StyleButton>
               </Popconfirm>
             )}
@@ -154,7 +163,9 @@ const CardNote = ({ note, moveNote, updateOption }) => {
                     width: "100%",
                   }}
                 >
-                  <IoMdTrash style={{ color: "grey", fontSize: 20 }} />
+                  <IoMdTrash
+                    style={{ color: "grey", fontSize: 20, display: "flex" }}
+                  />
                   ลบโน๊ต
                 </StyleButton>
               </Popconfirm>
@@ -168,7 +179,10 @@ const CardNote = ({ note, moveNote, updateOption }) => {
                 width: "100%",
               }}
             >
-              <Link to={`${path.updateNote}/${note.id}`}>
+              <Link
+                to={`${path.updateNote}/${note.id}`}
+                style={{ display: "flex" }}
+              >
                 <FaEdit style={{ color: "grey", fontSize: 20 }} />
                 แก้ไขโน๊ต
               </Link>

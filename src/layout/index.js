@@ -12,15 +12,14 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { path } from "../route";
 import { Link, useHistory } from "react-router-dom";
+import { DesktopOutlined } from "@ant-design/icons";
 import {
-  HomeOutlined,
-  DesktopOutlined,
-  FileOutlined,
-  UserOutlined,
-  TagOutlined,
-  StopOutlined,
-  BellOutlined,
-} from "@ant-design/icons";
+  BiNotepad,
+  BiLogOut,
+  BiHomeCircle,
+  BiPurchaseTag,
+} from "react-icons/bi";
+import { FaRegBell, FaRegistered } from "react-icons/fa";
 import { AuthContext } from "../contexts";
 import SubMenu from "antd/lib/menu/SubMenu";
 import { getUrlKey } from "../utils";
@@ -159,18 +158,18 @@ const Layout = ({ children, selectedKey, defaultOpenKey }) => {
           onClick={(e) => onClickSidePanel(e)}
           defaultOpenKeys={[defaultOpenKey]}
         >
-          <Menu.Item key={getUrlKey(path.home)} icon={<HomeOutlined />}>
+          <Menu.Item key={getUrlKey(path.home)} icon={<BiHomeCircle />}>
             Home
           </Menu.Item>
 
-          <SubMenu key="note" icon={<UserOutlined />} title="Note">
+          <SubMenu key="note" icon={<BiNotepad />} title="Note">
             <Menu.Item key={getUrlKey(path.note)}>Note</Menu.Item>
             <Menu.Item key={getUrlKey(path.createNote)}>Create Note</Menu.Item>
           </SubMenu>
-          <SubMenu key="tag" icon={<TagOutlined />} title="Tag">
+          <SubMenu key="tag" icon={<BiPurchaseTag />} title="Tag">
             <Menu.Item key={getUrlKey(path.createTag)}>Create Tag</Menu.Item>
           </SubMenu>
-          <Menu.Item key={getUrlKey(path.register)} icon={<FileOutlined />}>
+          <Menu.Item key={getUrlKey(path.register)} icon={<FaRegistered />}>
             Register
           </Menu.Item>
           {!isAuthentication && (
@@ -179,25 +178,25 @@ const Layout = ({ children, selectedKey, defaultOpenKey }) => {
             </Menu.Item>
           )}
           {isAuthentication && (
-            <Menu.Item key={"/logout"} icon={<FileOutlined />}>
+            <Menu.Item key={"/logout"} icon={<BiLogOut />}>
               Logout
             </Menu.Item>
           )}
-          <Menu.Item icon={<StopOutlined />}>Trash</Menu.Item>
         </Menu>
       </Sider>
       <AntLayout className="site-layout">
         <Header style={{ textAlign: "end" }}>
           <span className="avatar-item">
-            <Badge count={1}>
+            <Badge count={0}>
               <Dropdown
                 overlay={menu}
                 trigger={["click"]}
                 visible={visible}
                 onVisibleChange={onVisibleChange}
+                overlayStyle={{ borderRadius: 8 }}
               >
                 <Avatar
-                  icon={<BellOutlined />}
+                  icon={<FaRegBell />}
                   style={{ color: "white", backgroundColor: "#BFC9CA" }}
                   size={40}
                 />
@@ -214,7 +213,7 @@ const Layout = ({ children, selectedKey, defaultOpenKey }) => {
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
-          Ant Design ©2018 Created by Ant UED
+          Ant Design ©2018 Created by เอ ช่างไฟ
         </Footer>
       </AntLayout>
     </AntLayout>
