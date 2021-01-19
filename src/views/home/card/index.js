@@ -24,6 +24,11 @@ const CardHome = ({ note, updateLike }) => {
     setIsLoading(false);
     setIsUserLikeLoaded(true);
   };
+
+  const newDate = new Date(note.createDate).toLocaleString("en-GB", {
+    timeZone: "Asia/Bangkok",
+  });
+  // console.log(newDate);
   return (
     <StyleCard>
       <Comment
@@ -34,6 +39,7 @@ const CardHome = ({ note, updateLike }) => {
           </h3>
         }
       ></Comment>
+      <Comment author={newDate}></Comment>
       <Space>
         {Boolean(note.isLiked) === false && (
           <LikeOutlined onClick={() => updateLike(note.id, true)} />
