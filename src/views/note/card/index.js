@@ -80,6 +80,11 @@ const CardNote = ({ note, moveNote, updateOption }) => {
             </h3>
           }
         ></Comment>
+        <Comment
+          author={new Date(note.createDate).toLocaleString("en-GB", {
+            timeZone: "Asia/Bangkok",
+          })}
+        ></Comment>
         <Row justify="space-around" style={{ borderTop: "1px solid #f0f0f0" }}>
           <Space
             split={<Divider type="vertical" style={{ height: "1.5em" }} />}
