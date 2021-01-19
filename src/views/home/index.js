@@ -10,7 +10,7 @@ const ViewHome = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [userLiked, setUserLiked] = useState([]);
   const [loadingUserLiked, setLoadingUserLiked] = useState(true);
-  const [meta, setMeta] = useState({ currentPage: 0, itemsPerPage: 5 });
+  const [meta, setMeta] = useState({ currentPage: 0, itemsPerPage: 4 });
 
   useEffect(() => {
     getNotes();
@@ -78,7 +78,7 @@ const ViewHome = () => {
         })}
       </Row>
       {isLoading && <Skeleton active />}
-      {Number(meta.currentPage) !== Number(meta.itemsPerPage) && !isLoading && (
+      {Number(meta.currentPage) !== Number(meta.totalPages) && !isLoading && (
         <Link
           style={{ justifyContent: "center", display: "flex", width: "100%" }}
           onClick={getNotes}

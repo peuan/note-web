@@ -98,7 +98,7 @@ const Layout = ({ children, selectedKey, defaultOpenKey }) => {
     setVisible(visible);
   };
   const menu = (
-    <Menu style={{ width: "400px" }}>
+    <Menu style={{ width: "400px", maxHeight: "80vh", overflowY: "scroll" }}>
       {notifications.map((notification) => {
         return (
           <Menu.Item
@@ -127,7 +127,7 @@ const Layout = ({ children, selectedKey, defaultOpenKey }) => {
                 <Badge color="#2db7f5" style={{ height: "fit-content" }} />
               )}
             </Row>
-            <Divider style={{ margin: "10px 0px" }} />
+            <Divider style={{ margin: "0px 0px" }} />
           </Menu.Item>
         );
       })}
